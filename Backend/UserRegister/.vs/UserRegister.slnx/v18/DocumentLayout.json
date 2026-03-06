@@ -1,0 +1,170 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\New Auth\\Backend\\UserRegister\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A3C8FAE7-06B4-AAB1-E328-289B2D4A9293}|UserRegister\\UserRegister.csproj|c:\\users\\testing\\onedrive - testingxperts private limited\\documents\\fullstackauth\\new auth\\backend\\userregister\\userregister\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A3C8FAE7-06B4-AAB1-E328-289B2D4A9293}|UserRegister\\UserRegister.csproj|solutionrelative:userregister\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A3C8FAE7-06B4-AAB1-E328-289B2D4A9293}|UserRegister\\UserRegister.csproj|c:\\users\\testing\\onedrive - testingxperts private limited\\documents\\fullstackauth\\new auth\\backend\\userregister\\userregister\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A3C8FAE7-06B4-AAB1-E328-289B2D4A9293}|UserRegister\\UserRegister.csproj|solutionrelative:userregister\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A3C8FAE7-06B4-AAB1-E328-289B2D4A9293}|UserRegister\\UserRegister.csproj|c:\\users\\testing\\onedrive - testingxperts private limited\\documents\\fullstackauth\\new auth\\backend\\userregister\\userregister\\dtos\\registeruserdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A3C8FAE7-06B4-AAB1-E328-289B2D4A9293}|UserRegister\\UserRegister.csproj|solutionrelative:userregister\\dtos\\registeruserdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A3C8FAE7-06B4-AAB1-E328-289B2D4A9293}|UserRegister\\UserRegister.csproj|c:\\users\\testing\\onedrive - testingxperts private limited\\documents\\fullstackauth\\new auth\\backend\\userregister\\userregister\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A3C8FAE7-06B4-AAB1-E328-289B2D4A9293}|UserRegister\\UserRegister.csproj|solutionrelative:userregister\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A3C8FAE7-06B4-AAB1-E328-289B2D4A9293}|UserRegister\\UserRegister.csproj|c:\\users\\testing\\onedrive - testingxperts private limited\\documents\\fullstackauth\\new auth\\backend\\userregister\\userregister\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A3C8FAE7-06B4-AAB1-E328-289B2D4A9293}|UserRegister\\UserRegister.csproj|solutionrelative:userregister\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A3C8FAE7-06B4-AAB1-E328-289B2D4A9293}|UserRegister\\UserRegister.csproj|c:\\users\\testing\\onedrive - testingxperts private limited\\documents\\fullstackauth\\new auth\\backend\\userregister\\userregister\\models\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A3C8FAE7-06B4-AAB1-E328-289B2D4A9293}|UserRegister\\UserRegister.csproj|solutionrelative:userregister\\models\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A3C8FAE7-06B4-AAB1-E328-289B2D4A9293}|UserRegister\\UserRegister.csproj|c:\\users\\testing\\onedrive - testingxperts private limited\\documents\\fullstackauth\\new auth\\backend\\userregister\\userregister\\migrations\\20260127091816_initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A3C8FAE7-06B4-AAB1-E328-289B2D4A9293}|UserRegister\\UserRegister.csproj|solutionrelative:userregister\\migrations\\20260127091816_initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A3C8FAE7-06B4-AAB1-E328-289B2D4A9293}|UserRegister\\UserRegister.csproj|c:\\users\\testing\\onedrive - testingxperts private limited\\documents\\fullstackauth\\new auth\\backend\\userregister\\userregister\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A3C8FAE7-06B4-AAB1-E328-289B2D4A9293}|UserRegister\\UserRegister.csproj|solutionrelative:userregister\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A3C8FAE7-06B4-AAB1-E328-289B2D4A9293}|UserRegister\\UserRegister.csproj|c:\\users\\testing\\onedrive - testingxperts private limited\\documents\\fullstackauth\\new auth\\backend\\userregister\\userregister\\services\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A3C8FAE7-06B4-AAB1-E328-289B2D4A9293}|UserRegister\\UserRegister.csproj|solutionrelative:userregister\\services\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Users.cs",
+              "DocumentMoniker": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\New Auth\\Backend\\UserRegister\\UserRegister\\Models\\Users.cs",
+              "RelativeDocumentMoniker": "UserRegister\\Models\\Users.cs",
+              "ToolTip": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\New Auth\\Backend\\UserRegister\\UserRegister\\Models\\Users.cs",
+              "RelativeToolTip": "UserRegister\\Models\\Users.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-27T06:05:12.083Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RegisterUserDto.cs",
+              "DocumentMoniker": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\New Auth\\Backend\\UserRegister\\UserRegister\\DTOs\\RegisterUserDto.cs",
+              "RelativeDocumentMoniker": "UserRegister\\DTOs\\RegisterUserDto.cs",
+              "ToolTip": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\New Auth\\Backend\\UserRegister\\UserRegister\\DTOs\\RegisterUserDto.cs",
+              "RelativeToolTip": "UserRegister\\DTOs\\RegisterUserDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-27T06:06:29.967Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\New Auth\\Backend\\UserRegister\\UserRegister\\Services\\UserService.cs",
+              "RelativeDocumentMoniker": "UserRegister\\Services\\UserService.cs",
+              "ToolTip": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\New Auth\\Backend\\UserRegister\\UserRegister\\Services\\UserService.cs",
+              "RelativeToolTip": "UserRegister\\Services\\UserService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-27T06:08:41.473Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\New Auth\\Backend\\UserRegister\\UserRegister\\Program.cs",
+              "RelativeDocumentMoniker": "UserRegister\\Program.cs",
+              "ToolTip": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\New Auth\\Backend\\UserRegister\\UserRegister\\Program.cs",
+              "RelativeToolTip": "UserRegister\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-27T06:14:26.522Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\New Auth\\Backend\\UserRegister\\UserRegister\\appsettings.json",
+              "RelativeDocumentMoniker": "UserRegister\\appsettings.json",
+              "ToolTip": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\New Auth\\Backend\\UserRegister\\UserRegister\\appsettings.json",
+              "RelativeToolTip": "UserRegister\\appsettings.json",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-01-27T06:19:04.58Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\New Auth\\Backend\\UserRegister\\UserRegister\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "UserRegister\\Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\New Auth\\Backend\\UserRegister\\UserRegister\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "UserRegister\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-27T06:01:03.894Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "20260127091816_Initial.cs",
+              "DocumentMoniker": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\New Auth\\Backend\\UserRegister\\UserRegister\\Migrations\\20260127091816_Initial.cs",
+              "RelativeDocumentMoniker": "UserRegister\\Migrations\\20260127091816_Initial.cs",
+              "ToolTip": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\New Auth\\Backend\\UserRegister\\UserRegister\\Migrations\\20260127091816_Initial.cs",
+              "RelativeToolTip": "UserRegister\\Migrations\\20260127091816_Initial.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-27T09:18:17.201Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\New Auth\\Backend\\UserRegister\\UserRegister\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "UserRegister\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\New Auth\\Backend\\UserRegister\\UserRegister\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "UserRegister\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwA8AAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-27T06:11:07.236Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "IUserService.cs",
+              "DocumentMoniker": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\New Auth\\Backend\\UserRegister\\UserRegister\\Services\\IUserService.cs",
+              "RelativeDocumentMoniker": "UserRegister\\Services\\IUserService.cs",
+              "ToolTip": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\New Auth\\Backend\\UserRegister\\UserRegister\\Services\\IUserService.cs",
+              "RelativeToolTip": "UserRegister\\Services\\IUserService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-27T06:07:09.68Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

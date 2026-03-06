@@ -1,0 +1,6 @@
+@BookAllotment.API_HostAddress = http://localhost:5190
+
+GET {{BookAllotment.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

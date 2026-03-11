@@ -296,3 +296,4 @@ C:\Users\Testing\OneDrive - TestingXperts Private Limited\Documents\FullStackAut
 C:\Users\Testing\OneDrive - TestingXperts Private Limited\Documents\FullStackAuth\Book Allotment\Backend\BookAllotment.API\BookAllotment.API\obj\Debug\net8.0\BookAllotment.API.pdb
 C:\Users\Testing\OneDrive - TestingXperts Private Limited\Documents\FullStackAuth\Book Allotment\Backend\BookAllotment.API\BookAllotment.API\obj\Debug\net8.0\BookAllotment.API.genruntimeconfig.cache
 C:\Users\Testing\OneDrive - TestingXperts Private Limited\Documents\FullStackAuth\Book Allotment\Backend\BookAllotment.API\BookAllotment.API\obj\Debug\net8.0\ref\BookAllotment.API.dll
+C:\Users\Testing\OneDrive - TestingXperts Private Limited\Documents\FullStackAuth\Book Allotment\Backend\BookAllotment.API\BookAllotment.API\obj\Debug\net8.0\BookAllotment.API.sourcelink.json

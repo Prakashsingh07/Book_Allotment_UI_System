@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\Book Allotment\\Backend\\BookAllotment.API\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7E41C0D4-4AFD-3F92-B5E8-DFA7E3A6723C}|BookAllotment.API\\BookAllotment.API.csproj|c:\\users\\testing\\onedrive - testingxperts private limited\\documents\\fullstackauth\\book allotment\\backend\\bookallotment.api\\bookallotment.api\\services\\allotmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7E41C0D4-4AFD-3F92-B5E8-DFA7E3A6723C}|BookAllotment.API\\BookAllotment.API.csproj|solutionrelative:bookallotment.api\\services\\allotmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7E41C0D4-4AFD-3F92-B5E8-DFA7E3A6723C}|BookAllotment.API\\BookAllotment.API.csproj|c:\\users\\testing\\onedrive - testingxperts private limited\\documents\\fullstackauth\\book allotment\\backend\\bookallotment.api\\bookallotment.api\\controllers\\allotmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7E41C0D4-4AFD-3F92-B5E8-DFA7E3A6723C}|BookAllotment.API\\BookAllotment.API.csproj|solutionrelative:bookallotment.api\\controllers\\allotmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7E41C0D4-4AFD-3F92-B5E8-DFA7E3A6723C}|BookAllotment.API\\BookAllotment.API.csproj|c:\\users\\testing\\onedrive - testingxperts private limited\\documents\\fullstackauth\\book allotment\\backend\\bookallotment.api\\bookallotment.api\\models\\book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7E41C0D4-4AFD-3F92-B5E8-DFA7E3A6723C}|BookAllotment.API\\BookAllotment.API.csproj|solutionrelative:bookallotment.api\\models\\book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7E41C0D4-4AFD-3F92-B5E8-DFA7E3A6723C}|BookAllotment.API\\BookAllotment.API.csproj|c:\\users\\testing\\onedrive - testingxperts private limited\\documents\\fullstackauth\\book allotment\\backend\\bookallotment.api\\bookallotment.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7E41C0D4-4AFD-3F92-B5E8-DFA7E3A6723C}|BookAllotment.API\\BookAllotment.API.csproj|solutionrelative:bookallotment.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AllotmentService.cs",
+              "DocumentMoniker": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\Book Allotment\\Backend\\BookAllotment.API\\BookAllotment.API\\Services\\AllotmentService.cs",
+              "RelativeDocumentMoniker": "BookAllotment.API\\Services\\AllotmentService.cs",
+              "ToolTip": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\Book Allotment\\Backend\\BookAllotment.API\\BookAllotment.API\\Services\\AllotmentService.cs",
+              "RelativeToolTip": "BookAllotment.API\\Services\\AllotmentService.cs",
+              "ViewState": "AgIAAKYAAAAAAAAAAAAwwLEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-09T06:18:22.878Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AllotmentController.cs",
+              "DocumentMoniker": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\Book Allotment\\Backend\\BookAllotment.API\\BookAllotment.API\\Controllers\\AllotmentController.cs",
+              "RelativeDocumentMoniker": "BookAllotment.API\\Controllers\\AllotmentController.cs",
+              "ToolTip": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\Book Allotment\\Backend\\BookAllotment.API\\BookAllotment.API\\Controllers\\AllotmentController.cs",
+              "RelativeToolTip": "BookAllotment.API\\Controllers\\AllotmentController.cs",
+              "ViewState": "AgIAAFcAAAAAAAAAAAAwwGoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-09T06:16:46.841Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Book.cs",
+              "DocumentMoniker": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\Book Allotment\\Backend\\BookAllotment.API\\BookAllotment.API\\Models\\Book.cs",
+              "RelativeDocumentMoniker": "BookAllotment.API\\Models\\Book.cs",
+              "ToolTip": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\Book Allotment\\Backend\\BookAllotment.API\\BookAllotment.API\\Models\\Book.cs",
+              "RelativeToolTip": "BookAllotment.API\\Models\\Book.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAUwBQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-09T05:57:02.247Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\Book Allotment\\Backend\\BookAllotment.API\\BookAllotment.API\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "BookAllotment.API\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\Testing\\OneDrive - TestingXperts Private Limited\\Documents\\FullStackAuth\\Book Allotment\\Backend\\BookAllotment.API\\BookAllotment.API\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "BookAllotment.API\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-06T10:19:42.879Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

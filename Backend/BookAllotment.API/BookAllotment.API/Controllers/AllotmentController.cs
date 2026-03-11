@@ -31,10 +31,11 @@ namespace BookAllotment.API.Controllers
             int userId = int.Parse(userIdClaim);
 
             var result = await _service.GetByUser(userId);
+
             return Ok(result);
         }
 
-        // ✅ USER → VIEW MY ACTIVITY (NEW)
+        // ✅ USER → VIEW MY ACTIVITY
         [HttpGet("my-activity")]
         [Authorize(Roles = "User")]
         public async Task<IActionResult> MyActivity()
@@ -47,6 +48,7 @@ namespace BookAllotment.API.Controllers
             int userId = int.Parse(userIdClaim);
 
             var result = await _service.GetUserActivity(userId);
+
             return Ok(result);
         }
 
@@ -63,12 +65,13 @@ namespace BookAllotment.API.Controllers
             int userId = int.Parse(userIdClaim);
 
             await _service.ReturnBook(id, userId);
-            return Ok("Book returned successfully");
+
+            return Ok(new { message = "Book returned successfully" });
         }
 
         // ✅ ADMIN → ALLOT BOOK MANUALLY
-        [Authorize(Roles = "Admin")]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Allot([FromBody] AllotBookDto dto)
         {
             var adminEmail = User.FindFirst(ClaimTypes.Email)?.Value;
@@ -77,24 +80,28 @@ namespace BookAllotment.API.Controllers
                 return Unauthorized();
 
             await _service.AllotBook(dto.UserId, dto.BookId, adminEmail);
-            return Ok("Book allotted successfully");
+
+            return Ok(new { message = "Book allotted successfully" });
         }
 
         // ✅ ADMIN → VIEW ALL ALLOTMENTS
-        [Authorize(Roles = "Admin")]
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _service.GetAll());
+            var result = await _service.GetAll();
+
+            return Ok(result);
         }
 
         // ✅ ADMIN → REVOKE BOOK
-        [Authorize(Roles = "Admin")]
         [HttpPost("revoke/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Revoke(int id)
         {
             await _service.Revoke(id);
-            return Ok("Book revoked successfully");
+
+            return Ok(new { message = "Book revoked successfully" });
         }
     }
 }

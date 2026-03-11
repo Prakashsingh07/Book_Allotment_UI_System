@@ -790,6 +790,10 @@
             "type": "string",
             "nullable": true
           },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
           "allotments": {
             "type": "array",
             "items": {

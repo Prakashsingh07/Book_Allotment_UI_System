@@ -14,10 +14,14 @@ public partial class Book
     public int? Quantity { get; set; }
 
     public int? AvailableQuantity { get; set; }
+
     public string? Category { get; set; }
 
-    public string? Tags { get; set; } 
+    public string? Tags { get; set; }
+
+    public string? ImageUrl { get; set; }
 
     public virtual ICollection<Allotment> Allotments { get; set; } = new List<Allotment>();
+
     public virtual ICollection<BookRequest> BookRequests { get; set; } = new List<BookRequest>();
 }

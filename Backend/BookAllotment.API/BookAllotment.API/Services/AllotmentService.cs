@@ -72,6 +72,7 @@ namespace BookAllotment.API.Services
             {
                 id = a.Id,
                 bookTitle = a.Book?.Title,
+                imageUrl = a.Book?.ImageUrl,   // ⭐ added
                 userName = a.User?.Name,
                 userEmail = a.User?.Email,
                 status = a.Status,
@@ -87,15 +88,15 @@ namespace BookAllotment.API.Services
 
             return allotments.Select(a => new
             {
-                id = a.Id, // 🔥 VERY IMPORTANT FIX
+                id = a.Id,
                 bookTitle = a.Book?.Title,
+                imageUrl = a.Book?.ImageUrl,   // ⭐ FIX FOR YOUR IMAGE
                 status = a.Status,
                 allotDate = a.AllotDate,
                 returnDate = a.ReturnDate
             });
         }
 
-        
         // 🔹 USER → VIEW MY ACTIVITY
         public async Task<IEnumerable<object>> GetUserActivity(int userId)
         {
@@ -136,6 +137,7 @@ namespace BookAllotment.API.Services
                     {
                         id = a.Id,
                         bookTitle = a.Book?.Title,
+                        imageUrl = a.Book?.ImageUrl,   // ⭐ added here too
                         allotDate = a.AllotDate,
                         dueDate = a.DueDate,
                         returnDate = a.ReturnDate,

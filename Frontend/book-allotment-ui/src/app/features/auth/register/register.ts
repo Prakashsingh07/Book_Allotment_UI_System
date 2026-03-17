@@ -12,26 +12,17 @@ import { AuthService } from '../../../core/services/auth.service';
 
     <!-- ====== LEFT PANEL ====== -->
     <div class="hidden lg:flex w-1/2 relative items-center justify-center p-12 overflow-hidden">
-
-      <!-- Animated blobs -->
       <div class="absolute top-0 left-0 w-full h-full">
         <div class="absolute top-1/3 left-1/4 w-80 h-80 bg-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
         <div class="absolute bottom-1/3 right-1/4 w-64 h-64 bg-indigo-600/20 rounded-full blur-3xl animate-pulse" style="animation-delay:1.2s"></div>
         <div class="absolute top-2/3 left-1/2 w-48 h-48 bg-pink-600/15 rounded-full blur-2xl animate-pulse" style="animation-delay:2.4s"></div>
       </div>
-
-      <!-- Grid overlay -->
       <div class="absolute inset-0 opacity-5"
            style="background-image: linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px); background-size: 40px 40px;">
       </div>
-
-      <!-- Content -->
       <div class="relative z-10 max-w-md text-center space-y-8">
-
-        <!-- Logo -->
         <div class="flex items-center justify-center gap-3">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600
-                      flex items-center justify-center shadow-2xl shadow-indigo-500/40">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-2xl shadow-indigo-500/40">
             <span class="text-2xl">📚</span>
           </div>
           <div class="text-left">
@@ -39,54 +30,36 @@ import { AuthService } from '../../../core/services/auth.service';
             <p class="text-indigo-300 font-extrabold text-xl leading-none">Allotment</p>
           </div>
         </div>
-
         <div class="w-16 h-0.5 bg-gradient-to-r from-transparent via-purple-400 to-transparent mx-auto"></div>
-
         <div>
           <h2 class="text-4xl font-extrabold text-white leading-tight">
             Join your<br/>
-            <span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-              Library Community
-            </span>
+            <span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Library Community</span>
           </h2>
           <p class="text-white/50 mt-4 text-sm leading-relaxed">
             Create an account and start browsing, requesting and tracking books — all from one smart dashboard.
           </p>
         </div>
-
-        <!-- Steps -->
         <div class="space-y-3 text-left">
           <div *ngFor="let step of steps; let i = index"
                class="flex items-center gap-4 bg-white/5 border border-white/10 rounded-2xl px-4 py-3">
             <div class="w-8 h-8 rounded-xl flex items-center justify-center text-sm font-extrabold flex-shrink-0"
-                 [ngClass]="stepColors[i]">
-              {{ i + 1 }}
-            </div>
+                 [ngClass]="stepColors[i]">{{ i + 1 }}</div>
             <p class="text-white/60 text-sm">{{ step }}</p>
           </div>
         </div>
-
       </div>
     </div>
 
     <!-- ====== RIGHT PANEL ====== -->
     <div class="flex-1 flex items-center justify-center p-6 relative">
-
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-                  w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
-
-      <!-- Form card -->
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
       <div class="relative w-full max-w-md">
-
-        <!-- Card glow -->
         <div class="absolute -inset-0.5 bg-gradient-to-r from-purple-500/30 to-pink-500/30 rounded-3xl blur"></div>
-
         <div class="relative bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl">
 
           <!-- Success banner -->
-          <div *ngIf="successMsg"
-               class="mb-5 flex items-center gap-3 px-4 py-3 rounded-xl
-                      bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-sm">
+          <div *ngIf="successMsg" class="mb-5 flex items-center gap-3 px-4 py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-sm">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
@@ -94,9 +67,7 @@ import { AuthService } from '../../../core/services/auth.service';
           </div>
 
           <!-- Error banner -->
-          <div *ngIf="errorMsg"
-               class="mb-5 flex items-center gap-3 px-4 py-3 rounded-xl
-                      bg-rose-500/10 border border-rose-500/25 text-rose-400 text-sm">
+          <div *ngIf="errorMsg" class="mb-5 flex items-center gap-3 px-4 py-3 rounded-xl bg-rose-500/10 border border-rose-500/25 text-rose-400 text-sm">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M12 3a9 9 0 100 18A9 9 0 0012 3z" />
             </svg>
@@ -105,12 +76,9 @@ import { AuthService } from '../../../core/services/auth.service';
 
           <!-- Header -->
           <div class="text-center mb-8">
-            <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl
-                        bg-gradient-to-br from-purple-500/30 to-pink-600/30
-                        border border-purple-500/30 mb-4 shadow-lg">
+            <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500/30 to-pink-600/30 border border-purple-500/30 mb-4 shadow-lg">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-purple-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
               </svg>
             </div>
             <h1 class="text-2xl font-extrabold text-white">Create Account</h1>
@@ -130,18 +98,12 @@ import { AuthService } from '../../../core/services/auth.service';
                   </svg>
                 </div>
                 <input formControlName="name" type="text" placeholder="John Doe"
-                       class="w-full bg-white/5 border text-white placeholder-white/20 rounded-xl
-                              pl-10 pr-4 py-3 text-sm transition-all duration-200
-                              focus:outline-none focus:ring-2 focus:bg-white/8"
+                       class="w-full bg-white/5 border text-white placeholder-white/20 rounded-xl pl-10 pr-4 py-3 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:bg-white/8"
                        [ngClass]="form.get('name')?.invalid && form.get('name')?.touched
                          ? 'border-rose-500/50 focus:ring-rose-500/30'
                          : 'border-white/10 focus:ring-purple-500/40 focus:border-purple-500/50'" />
               </div>
-              <p *ngIf="form.get('name')?.invalid && form.get('name')?.touched"
-                 class="mt-1.5 text-xs text-rose-400 flex items-center gap-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01" />
-                </svg>
+              <p *ngIf="form.get('name')?.invalid && form.get('name')?.touched" class="mt-1.5 text-xs text-rose-400">
                 Name must be at least 3 characters
               </p>
             </div>
@@ -156,18 +118,12 @@ import { AuthService } from '../../../core/services/auth.service';
                   </svg>
                 </div>
                 <input formControlName="email" type="email" placeholder="you@example.com"
-                       class="w-full bg-white/5 border text-white placeholder-white/20 rounded-xl
-                              pl-10 pr-4 py-3 text-sm transition-all duration-200
-                              focus:outline-none focus:ring-2 focus:bg-white/8"
+                       class="w-full bg-white/5 border text-white placeholder-white/20 rounded-xl pl-10 pr-4 py-3 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:bg-white/8"
                        [ngClass]="form.get('email')?.invalid && form.get('email')?.touched
                          ? 'border-rose-500/50 focus:ring-rose-500/30'
                          : 'border-white/10 focus:ring-purple-500/40 focus:border-purple-500/50'" />
               </div>
-              <p *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
-                 class="mt-1.5 text-xs text-rose-400 flex items-center gap-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01" />
-                </svg>
+              <p *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="mt-1.5 text-xs text-rose-400">
                 Please enter a valid email address
               </p>
             </div>
@@ -181,10 +137,11 @@ import { AuthService } from '../../../core/services/auth.service';
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                   </svg>
                 </div>
-                <input formControlName="password" [type]="showPassword ? 'text' : 'password'" placeholder="Enter your password"
-                       class="w-full bg-white/5 border border-white/10 text-white placeholder-white/20 rounded-xl
-                              pl-10 pr-12 py-3 text-sm transition-all duration-200
-                              focus:outline-none focus:ring-2 focus:ring-purple-500/40 focus:border-purple-500/50 focus:bg-white/8" />
+                <input formControlName="password" [type]="showPassword ? 'text' : 'password'" placeholder="At least 6 characters"
+                       class="w-full bg-white/5 border text-white placeholder-white/20 rounded-xl pl-10 pr-12 py-3 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:bg-white/8"
+                       [ngClass]="form.get('password')?.invalid && form.get('password')?.touched
+                         ? 'border-rose-500/50 focus:ring-rose-500/30'
+                         : 'border-white/10 focus:ring-purple-500/40 focus:border-purple-500/50'" />
                 <button type="button" (click)="showPassword = !showPassword"
                         class="absolute right-3.5 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 transition-colors">
                   <svg *ngIf="!showPassword" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -197,8 +154,14 @@ import { AuthService } from '../../../core/services/auth.service';
                 </button>
               </div>
 
-              <!-- Password strength meter (cosmetic only) -->
-              <div *ngIf="form.get('password')?.value" class="mt-2">
+              <!-- Validation message -->
+              <div *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="mt-1.5 text-xs text-rose-400">
+                <span *ngIf="form.get('password')?.errors?.['required']">Password is required</span>
+                <span *ngIf="form.get('password')?.errors?.['minlength']">Password must be at least 6 characters</span>
+              </div>
+
+              <!-- Password strength meter -->
+              <div *ngIf="form.get('password')?.value && !form.get('password')?.errors?.['minlength']" class="mt-2">
                 <div class="flex gap-1">
                   <div *ngFor="let s of [1,2,3,4]"
                        class="flex-1 h-1 rounded-full transition-all duration-300"
@@ -232,9 +195,7 @@ import { AuthService } from '../../../core/services/auth.service';
           <div class="mt-6 pt-6 border-t border-white/5 text-center">
             <p class="text-white/40 text-sm">
               Already have an account?
-              <a routerLink="/login" class="text-purple-400 hover:text-purple-300 font-semibold ml-1 transition-colors">
-                Sign in →
-              </a>
+              <a routerLink="/login" class="text-purple-400 hover:text-purple-300 font-semibold ml-1 transition-colors">Sign in →</a>
             </p>
           </div>
 
@@ -264,35 +225,32 @@ export class RegisterComponent {
     private router: Router
   ) {
     this.form = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
+      name:     ['', [Validators.required, Validators.minLength(3)]],
+      email:    ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
   get passwordStrength(): number {
     const p = this.form.get('password')?.value || '';
     let score = 0;
-    if (p.length >= 4) score++;
-    if (p.length >= 8) score++;
+    if (p.length >= 6)  score++;
+    if (p.length >= 10) score++;
     if (/[A-Z]/.test(p) || /[0-9]/.test(p)) score++;
     if (/[^A-Za-z0-9]/.test(p)) score++;
     return score;
   }
 
   get strengthColor(): string {
-    const colors = ['bg-rose-500', 'bg-amber-500', 'bg-yellow-400', 'bg-emerald-500'];
-    return colors[this.passwordStrength - 1] || 'bg-rose-500';
+    return ['bg-rose-500', 'bg-amber-500', 'bg-yellow-400', 'bg-emerald-500'][this.passwordStrength - 1] || 'bg-rose-500';
   }
 
   get strengthTextColor(): string {
-    const colors = ['text-rose-400', 'text-amber-400', 'text-yellow-400', 'text-emerald-400'];
-    return colors[this.passwordStrength - 1] || 'text-rose-400';
+    return ['text-rose-400', 'text-amber-400', 'text-yellow-400', 'text-emerald-400'][this.passwordStrength - 1] || 'text-rose-400';
   }
 
   get strengthLabel(): string {
-    const labels = ['Weak', 'Fair', 'Good', 'Strong'];
-    return labels[this.passwordStrength - 1] || 'Weak';
+    return ['Weak', 'Fair', 'Good', 'Strong'][this.passwordStrength - 1] || 'Weak';
   }
 
   register() {

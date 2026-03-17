@@ -53,6 +53,14 @@ export const routes: Routes = [
     canActivate: [authGuard, roleGuard],
     data: { role: 'Admin' }
   },
+  {
+    path: 'admin/profile',
+    loadComponent: () =>
+      import('./features/admin/profile/profile')
+        .then(m => m.AdminProfileComponent),
+    canActivate: [authGuard, roleGuard],
+    data: { role: 'Admin' }
+  },
 
   // USER ROUTES
   {

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, NgZone } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { AdminService } from '../../../core/services/admin.service';
@@ -21,7 +21,7 @@ Chart.register(...registerables);
       <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <p class="text-indigo-300 text-xs font-bold uppercase tracking-widest mb-1">Admin Panel</p>
-          <h1 class="text-4xl font-extrabold text-white">Dashboard</h1>
+          <h1 class="text-4xl font-extrabold text-white">Welcome, {{ adminName }} 👋</h1>
           <p class="text-indigo-200/70 mt-1 text-sm">Live system overview · Auto-refreshes every 30s</p>
         </div>
         <div class="flex items-center gap-4">
@@ -48,8 +48,7 @@ Chart.register(...registerables);
             <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
             <span class="text-emerald-400 text-xs font-semibold">Live</span>
           </div>
-          <button (click)="manualRefresh()"
-                  [disabled]="loading"
+          <button (click)="manualRefresh()" [disabled]="loading"
                   class="flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-bold
                          bg-white/10 border border-white/10 text-white/70
                          hover:bg-white/15 hover:text-white transition-all
@@ -90,8 +89,7 @@ Chart.register(...registerables);
             Apply Filter
           </button>
           <button type="button" (click)="clearFilter()"
-                  class="px-4 py-2.5 rounded-xl text-sm font-bold
-                         bg-white/10 text-white/60 border border-white/10
+                  class="px-4 py-2.5 rounded-xl text-sm font-bold bg-white/10 text-white/60 border border-white/10
                          hover:bg-white/15 hover:text-white transition-all">
             Clear
           </button>
@@ -102,8 +100,7 @@ Chart.register(...registerables);
     <!-- Skeleton loader (first load only) -->
     <div *ngIf="loading && !dashboard" class="space-y-6">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div *ngFor="let i of [1,2,3,4]"
-             class="h-24 bg-white/5 rounded-2xl border border-white/10 animate-pulse"></div>
+        <div *ngFor="let i of [1,2,3,4]" class="h-24 bg-white/5 rounded-2xl border border-white/10 animate-pulse"></div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="h-72 bg-white/5 rounded-3xl border border-white/10 animate-pulse"></div>
@@ -111,45 +108,38 @@ Chart.register(...registerables);
       </div>
     </div>
 
-    <!-- Content (shown after first load; updates in place) -->
+    <!-- Content -->
     <div *ngIf="dashboard">
 
       <!-- Stats Grid -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
 
-        <!-- Users -->
         <div class="relative bg-gradient-to-br from-indigo-600/30 to-indigo-700/30 backdrop-blur-sm
-                    rounded-2xl border border-indigo-500/20 p-5 overflow-hidden shadow-lg group
+                    rounded-2xl border border-indigo-500/20 p-5 overflow-hidden shadow-lg
                     hover:border-indigo-400/40 hover:-translate-y-0.5 transition-all duration-200">
           <div class="absolute -bottom-4 -right-4 w-20 h-20 bg-indigo-500/10 rounded-full blur-xl"></div>
-          <div class="flex items-center justify-between mb-3">
-            <div class="w-10 h-10 rounded-xl bg-indigo-500/30 flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-indigo-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-              </svg>
-            </div>
+          <div class="w-10 h-10 rounded-xl bg-indigo-500/30 flex items-center justify-center mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-indigo-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
           </div>
           <p class="text-xs text-indigo-300 font-medium mb-1">Total Users</p>
           <p class="text-3xl font-extrabold text-white">{{ dashboard.totalUsers }}</p>
         </div>
 
-        <!-- Books -->
         <div class="relative bg-gradient-to-br from-purple-600/30 to-purple-700/30 backdrop-blur-sm
                     rounded-2xl border border-purple-500/20 p-5 overflow-hidden shadow-lg
                     hover:border-purple-400/40 hover:-translate-y-0.5 transition-all duration-200">
           <div class="absolute -bottom-4 -right-4 w-20 h-20 bg-purple-500/10 rounded-full blur-xl"></div>
-          <div class="flex items-center justify-between mb-3">
-            <div class="w-10 h-10 rounded-xl bg-purple-500/30 flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-purple-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-              </svg>
-            </div>
+          <div class="w-10 h-10 rounded-xl bg-purple-500/30 flex items-center justify-center mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-purple-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
           </div>
           <p class="text-xs text-purple-300 font-medium mb-1">Total Books</p>
           <p class="text-3xl font-extrabold text-white">{{ dashboard.totalBooks }}</p>
         </div>
 
-        <!-- Pending -->
         <div class="relative bg-gradient-to-br from-amber-600/30 to-amber-700/30 backdrop-blur-sm
                     rounded-2xl border border-amber-500/20 p-5 overflow-hidden shadow-lg
                     hover:border-amber-400/40 hover:-translate-y-0.5 transition-all duration-200">
@@ -160,8 +150,7 @@ Chart.register(...registerables);
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
               </svg>
             </div>
-            <span *ngIf="dashboard.pendingCount > 0"
-                  class="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+            <span *ngIf="dashboard.pendingCount > 0" class="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
               Action needed
             </span>
           </div>
@@ -169,7 +158,6 @@ Chart.register(...registerables);
           <p class="text-3xl font-extrabold text-white">{{ dashboard.pendingCount }}</p>
         </div>
 
-        <!-- Overdue -->
         <div class="relative bg-gradient-to-br from-rose-600/30 to-rose-700/30 backdrop-blur-sm
                     rounded-2xl border border-rose-500/20 p-5 overflow-hidden shadow-lg
                     hover:border-rose-400/40 hover:-translate-y-0.5 transition-all duration-200">
@@ -180,8 +168,7 @@ Chart.register(...registerables);
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <span *ngIf="dashboard.overdueCount > 0"
-                  class="text-xs font-bold px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">
+            <span *ngIf="dashboard.overdueCount > 0" class="text-xs font-bold px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">
               Overdue
             </span>
           </div>
@@ -194,7 +181,6 @@ Chart.register(...registerables);
       <!-- Charts Row -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
 
-        <!-- Doughnut: Book Status Breakdown -->
         <div class="bg-white/5 backdrop-blur-md rounded-3xl border border-white/10 p-6 shadow-2xl">
           <div class="mb-5">
             <h2 class="text-white font-bold text-base">Book Status Breakdown</h2>
@@ -244,7 +230,6 @@ Chart.register(...registerables);
           </div>
         </div>
 
-        <!-- Bar: Users vs Books vs Pending vs Overdue (separate Y axis per group) -->
         <div class="bg-white/5 backdrop-blur-md rounded-3xl border border-white/10 p-6 shadow-2xl">
           <div class="mb-5">
             <h2 class="text-white font-bold text-base">System Overview</h2>
@@ -258,7 +243,6 @@ Chart.register(...registerables);
       <!-- Health Row -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-        <!-- User Activity -->
         <div class="bg-white/5 backdrop-blur-md rounded-3xl border border-white/10 p-6 shadow-xl">
           <h3 class="text-white/70 text-sm font-bold mb-4">System Health</h3>
           <div class="space-y-4">
@@ -268,8 +252,7 @@ Chart.register(...registerables);
                 <span class="text-white font-semibold">{{ dashboard.totalUsers }}</span>
               </div>
               <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-indigo-500 to-indigo-400 rounded-full"
-                     [style.width.%]="100"></div>
+                <div class="h-full bg-gradient-to-r from-indigo-500 to-indigo-400 rounded-full" [style.width.%]="100"></div>
               </div>
             </div>
             <div>
@@ -278,8 +261,7 @@ Chart.register(...registerables);
                 <span class="text-white font-semibold">{{ dashboard.totalBooks }}</span>
               </div>
               <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-purple-500 to-purple-400 rounded-full"
-                     [style.width.%]="100"></div>
+                <div class="h-full bg-gradient-to-r from-purple-500 to-purple-400 rounded-full" [style.width.%]="100"></div>
               </div>
             </div>
             <div>
@@ -288,8 +270,7 @@ Chart.register(...registerables);
                 <span class="text-amber-400 font-semibold">{{ pendingRate }}%</span>
               </div>
               <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-amber-500 to-amber-400 rounded-full transition-all duration-700"
-                     [style.width.%]="pendingRate"></div>
+                <div class="h-full bg-gradient-to-r from-amber-500 to-amber-400 rounded-full transition-all duration-700" [style.width.%]="pendingRate"></div>
               </div>
             </div>
             <div>
@@ -298,42 +279,35 @@ Chart.register(...registerables);
                 <span class="text-rose-400 font-semibold">{{ overdueRate }}%</span>
               </div>
               <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-rose-500 to-rose-400 rounded-full transition-all duration-700"
-                     [style.width.%]="overdueRate"></div>
+                <div class="h-full bg-gradient-to-r from-rose-500 to-rose-400 rounded-full transition-all duration-700" [style.width.%]="overdueRate"></div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Quick Status cards -->
         <div class="md:col-span-2 bg-white/5 backdrop-blur-md rounded-3xl border border-white/10 p-6 shadow-xl">
           <h3 class="text-white/70 text-sm font-bold mb-4">Snapshot</h3>
           <div class="grid grid-cols-2 gap-4">
-
             <div class="bg-indigo-500/10 border border-indigo-500/20 rounded-2xl p-4 flex flex-col gap-1">
               <p class="text-indigo-300 text-xs font-semibold uppercase tracking-wider">Books Available</p>
               <p class="text-3xl font-extrabold text-white">{{ availableBooks }}</p>
               <p class="text-white/30 text-xs">Ready to be issued</p>
             </div>
-
             <div class="bg-purple-500/10 border border-purple-500/20 rounded-2xl p-4 flex flex-col gap-1">
               <p class="text-purple-300 text-xs font-semibold uppercase tracking-wider">Currently Issued</p>
               <p class="text-3xl font-extrabold text-white">{{ issuedBooks }}</p>
               <p class="text-white/30 text-xs">With users right now</p>
             </div>
-
             <div class="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-4 flex flex-col gap-1">
               <p class="text-amber-300 text-xs font-semibold uppercase tracking-wider">Awaiting Approval</p>
               <p class="text-3xl font-extrabold text-white">{{ dashboard.pendingCount }}</p>
               <p class="text-white/30 text-xs">Requests to review</p>
             </div>
-
             <div class="bg-rose-500/10 border border-rose-500/20 rounded-2xl p-4 flex flex-col gap-1">
               <p class="text-rose-300 text-xs font-semibold uppercase tracking-wider">Overdue Returns</p>
               <p class="text-3xl font-extrabold text-white">{{ dashboard.overdueCount }}</p>
               <p class="text-white/30 text-xs">Past their due date</p>
             </div>
-
           </div>
         </div>
 
@@ -348,6 +322,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   dashboard: any = null;
   loading = false;
   countdown = 30;
+  adminName = 'Admin';
 
   private barChart: Chart | null = null;
   private doughnutChart: Chart | null = null;
@@ -386,10 +361,18 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // Decode admin name from JWT token
+    try {
+      const token = localStorage.getItem('token');
+      if (token) {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        this.adminName = payload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] || 'Admin';
+      }
+    } catch { this.adminName = 'Admin'; }
+
     this.filterForm = this.fb.group({ fromDate: [''], toDate: [''] });
     this.loadDashboard();
 
-    // Countdown + auto-refresh every 30s
     this.timerSub = interval(1000).subscribe(() => {
       this.zone.run(() => {
         this.countdown--;
@@ -407,7 +390,6 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
       next: (res) => {
         this.dashboard = res;
         this.loading = false;
-        // Defer chart creation until canvas is in DOM
         setTimeout(() => this.updateCharts(), 50);
       },
       error: () => { this.loading = false; }
@@ -415,18 +397,13 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   applyFilters() { this.countdown = 30; this.loadDashboard(); }
-
   manualRefresh() { this.countdown = 30; this.loadDashboard(); }
-
   clearFilter() {
     this.filterForm.reset({ fromDate: '', toDate: '' });
     this.loadDashboard();
   }
 
-  updateCharts() {
-    this.updateDoughnut();
-    this.updateBar();
-  }
+  updateCharts() { this.updateDoughnut(); this.updateBar(); }
 
   updateDoughnut() {
     const available = this.availableBooks;
@@ -435,7 +412,6 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     const data = [available, issued, overdue];
 
     if (this.doughnutChart) {
-      // Update data in place — no flicker, much faster
       this.doughnutChart.data.datasets[0].data = data;
       this.doughnutChart.update('active');
       return;
@@ -485,7 +461,6 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     ];
 
     if (this.barChart) {
-      // Update data in place
       this.barChart.data.datasets[0].data = data;
       this.barChart.update('active');
       return;
@@ -501,18 +476,8 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
         datasets: [{
           label: 'Count',
           data,
-          backgroundColor: [
-            'rgba(99,102,241,0.7)',
-            'rgba(139,92,246,0.7)',
-            'rgba(245,158,11,0.7)',
-            'rgba(239,68,68,0.7)'
-          ],
-          borderColor: [
-            'rgba(99,102,241,1)',
-            'rgba(139,92,246,1)',
-            'rgba(245,158,11,1)',
-            'rgba(239,68,68,1)'
-          ],
+          backgroundColor: ['rgba(99,102,241,0.7)', 'rgba(139,92,246,0.7)', 'rgba(245,158,11,0.7)', 'rgba(239,68,68,0.7)'],
+          borderColor: ['rgba(99,102,241,1)', 'rgba(139,92,246,1)', 'rgba(245,158,11,1)', 'rgba(239,68,68,1)'],
           borderWidth: 2,
           borderRadius: 10,
           borderSkipped: false,
@@ -541,12 +506,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
           },
           y: {
             grid: { color: 'rgba(255,255,255,0.04)' },
-            ticks: {
-              color: 'rgba(255,255,255,0.5)',
-              font: { size: 11 },
-              stepSize: 1,
-              precision: 0
-            },
+            ticks: { color: 'rgba(255,255,255,0.5)', font: { size: 11 }, stepSize: 1, precision: 0 },
             border: { color: 'rgba(255,255,255,0.05)' },
             beginAtZero: true
           }

@@ -33,8 +33,6 @@ import { filter } from 'rxjs/operators';
     .active-link {
       color: #a5b4fc !important;
     }
-    /* CRITICAL: pointer-events none on the decorative backdrop div
-       so it never intercepts clicks meant for nav links */
     .nav-backdrop {
       pointer-events: none;
     }
@@ -42,7 +40,6 @@ import { filter } from 'rxjs/operators';
   template: `
   <nav class="sticky top-0 z-50 w-full">
 
-    <!-- Backdrop — pointer-events:none so it never blocks link clicks -->
     <div class="nav-backdrop absolute inset-0 bg-slate-900/80 backdrop-blur-xl border-b transition-all duration-200"
          [ngClass]="scrolled ? 'border-white/10 shadow-2xl shadow-black/30' : 'border-white/5'">
     </div>
@@ -50,15 +47,13 @@ import { filter } from 'rxjs/operators';
     <div class="relative px-6 py-0 flex items-center justify-between h-16 max-w-screen-2xl mx-auto">
 
       <!-- LOGO -->
-      <a routerLink="/"
-         class="flex items-center gap-2.5 group flex-shrink-0">
+      <a routerLink="/" class="flex items-center gap-2.5 group flex-shrink-0">
         <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600
                     flex items-center justify-center shadow-lg shadow-indigo-500/30
                     group-hover:shadow-indigo-500/50 group-hover:scale-105 transition-all duration-200">
           <span class="text-lg">📚</span>
         </div>
-        <span class="font-extrabold text-white text-base tracking-tight
-                     group-hover:text-indigo-300 transition-colors duration-200">
+        <span class="font-extrabold text-white text-base tracking-tight group-hover:text-indigo-300 transition-colors duration-200">
           Book<span class="text-indigo-400">Allotment</span>
         </span>
       </a>
@@ -76,8 +71,7 @@ import { filter } from 'rxjs/operators';
              class="ml-2 px-4 py-2 rounded-xl text-sm font-semibold
                     bg-gradient-to-r from-indigo-500 to-purple-600 text-white
                     hover:from-indigo-400 hover:to-purple-500
-                    shadow-md shadow-indigo-500/20 hover:shadow-indigo-500/40
-                    transition-all duration-200">
+                    shadow-md shadow-indigo-500/20 hover:shadow-indigo-500/40 transition-all duration-200">
             Register
           </a>
         </ng-container>
@@ -124,6 +118,18 @@ import { filter } from 'rxjs/operators';
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
               </svg>
               Requests
+            </a>
+            <!-- Admin Profile avatar link -->
+            <a routerLink="/admin/profile" routerLinkActive="active-link"
+               class="nav-link ml-1 flex items-center gap-2 px-3 py-1.5 rounded-xl
+                      text-sm font-medium text-white/70 hover:text-white
+                      hover:bg-white/5 transition-all duration-200 border border-transparent
+                      hover:border-white/10">
+              <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-amber-500 to-orange-500
+                          flex items-center justify-center text-xs font-bold text-white shadow-sm">
+                {{ username.charAt(0).toUpperCase() }}
+              </div>
+              <span>Profile</span>
             </a>
           </ng-container>
 
@@ -186,8 +192,7 @@ import { filter } from 'rxjs/operators';
           <button (click)="logout()"
                   class="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold
                          text-rose-400 hover:text-white hover:bg-rose-500/20
-                         border border-transparent hover:border-rose-500/30
-                         transition-all duration-200">
+                         border border-transparent hover:border-rose-500/30 transition-all duration-200">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
             </svg>
@@ -202,25 +207,21 @@ import { filter } from 'rxjs/operators';
 })
 export class NavbarComponent implements OnInit {
 
-  private auth   = inject(AuthService);
-  private router = inject(Router);
+  private auth        = inject(AuthService);
+  private router      = inject(Router);
   private bookService = inject(BookService);
-  private zone   = inject(NgZone);
-  private cdr    = inject(ChangeDetectorRef);
+  private zone        = inject(NgZone);
+  private cdr         = inject(ChangeDetectorRef);
 
-  // ── Stored as plain properties so OnPush CD sees every update ──
-  loggedIn   = false;
+  loggedIn       = false;
   userRole: string | null = null;
-  username   = '';
-  scrolled   = false;
+  username       = '';
+  scrolled       = false;
   availableCount = 0;
 
   ngOnInit(): void {
-    // Initialise state from token immediately
     this.syncAuthState();
 
-    // Re-sync on every completed navigation so the navbar
-    // always reflects the current auth state after route changes
     this.router.events
       .pipe(filter(e => e instanceof NavigationEnd))
       .subscribe(() => {
@@ -228,7 +229,6 @@ export class NavbarComponent implements OnInit {
         this.cdr.markForCheck();
       });
 
-    // Scroll listener runs INSIDE zone so CD fires immediately
     this.zone.runOutsideAngular(() => {
       window.addEventListener('scroll', () => {
         const next = window.scrollY > 10;
@@ -263,10 +263,7 @@ export class NavbarComponent implements OnInit {
 
   loadAvailableCount(): void {
     this.bookService.getAvailableCount().subscribe({
-      next: (count) => {
-        this.availableCount = count;
-        this.cdr.markForCheck();
-      },
+      next: (count) => { this.availableCount = count; this.cdr.markForCheck(); },
       error: () => {}
     });
   }

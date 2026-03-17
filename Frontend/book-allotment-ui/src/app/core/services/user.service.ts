@@ -14,26 +14,15 @@ export interface User {
 })
 export class UserService {
 
-  // 🔹 Admin User Management API
   private adminBaseUrl = 'https://localhost:7278/api/admin/users';
-
-  // 🔹 Allotment API
   private allotmentUrl = 'https://localhost:7278/api/allotments';
-
-  // 🔹 Auth API (Profile related)
-  private authUrl = 'https://localhost:7278/api/auth';
+  private authUrl      = 'https://localhost:7278/api/auth';
 
   constructor(private http: HttpClient) {}
 
-  // 🔐 Attach JWT Token
   private getAuthHeaders() {
     const token = localStorage.getItem('token');
-
-    return {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${token}`
-      })
-    };
+    return { headers: new HttpHeaders({ Authorization: `Bearer ${token}` }) };
   }
 
   // ==========================================
@@ -41,40 +30,23 @@ export class UserService {
   // ==========================================
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(
-      this.adminBaseUrl,
-      this.getAuthHeaders()
-    );
+    return this.http.get<User[]>(this.adminBaseUrl, this.getAuthHeaders());
   }
 
   getUserById(id: number): Observable<User> {
-    return this.http.get<User>(
-      `${this.adminBaseUrl}/${id}`,
-      this.getAuthHeaders()
-    );
+    return this.http.get<User>(`${this.adminBaseUrl}/${id}`, this.getAuthHeaders());
   }
 
   addUser(user: any) {
-    return this.http.post(
-      this.adminBaseUrl,
-      user,
-      this.getAuthHeaders()
-    );
+    return this.http.post(this.adminBaseUrl, user, this.getAuthHeaders());
   }
 
   updateUser(id: number, user: any) {
-    return this.http.put(
-      `${this.adminBaseUrl}/${id}`,
-      user,
-      this.getAuthHeaders()
-    );
+    return this.http.put(`${this.adminBaseUrl}/${id}`, user, this.getAuthHeaders());
   }
 
   deleteUser(id: number) {
-    return this.http.delete(
-      `${this.adminBaseUrl}/${id}`,
-      this.getAuthHeaders()
-    );
+    return this.http.delete(`${this.adminBaseUrl}/${id}`, this.getAuthHeaders());
   }
 
   // ==========================================
@@ -82,10 +54,7 @@ export class UserService {
   // ==========================================
 
   getMyActivity(): Observable<any[]> {
-    return this.http.get<any[]>(
-      `${this.allotmentUrl}/my-activity`,
-      this.getAuthHeaders()
-    );
+    return this.http.get<any[]>(`${this.allotmentUrl}/my-activity`, this.getAuthHeaders());
   }
 
   // ==========================================
@@ -93,18 +62,22 @@ export class UserService {
   // ==========================================
 
   getProfile(): Observable<User> {
-    return this.http.get<User>(
-      `${this.authUrl}/me`,
-      this.getAuthHeaders()
-    );
+    return this.http.get<User>(`${this.authUrl}/me`, this.getAuthHeaders());
   }
 
   updateProfile(data: any) {
-    return this.http.put(
-      `${this.authUrl}/update-profile`,
-      data,
-      this.getAuthHeaders()
-    );
+    return this.http.put(`${this.authUrl}/update-profile`, data, this.getAuthHeaders());
   }
 
+  // ==========================================
+  // ✅ ADMIN → PROFILE
+  // ==========================================
+
+  getAdminProfile(): Observable<User> {
+    return this.http.get<User>(`${this.authUrl}/admin/me`, this.getAuthHeaders());
+  }
+
+  updateAdminProfile(data: any) {
+    return this.http.put(`${this.authUrl}/admin/update-profile`, data, this.getAuthHeaders());
+  }
 }

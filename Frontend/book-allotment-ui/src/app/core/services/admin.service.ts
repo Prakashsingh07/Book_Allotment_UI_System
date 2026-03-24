@@ -8,41 +8,46 @@ export interface AdminDashboard {
   pendingCount: number;
 }
 
+export interface LibrarySettings {
+  issueDays: number;
+  finePerDay: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
 
-  private apiUrl = 'https://localhost:7278/api/dashboard';
+  private apiUrl      = 'https://localhost:7278/api/dashboard';
+  private adminApiUrl = 'https://localhost:7278/api/admin';
 
   constructor(private http: HttpClient) {}
 
-  // 🔐 Attach JWT Token
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
-    return new HttpHeaders({
-      Authorization: `Bearer ${token}`
-    });
+    return new HttpHeaders({ Authorization: `Bearer ${token}` });
   }
 
-  // 📊 Get Dashboard Data (with optional filters)
   getDashboard(filters: any): Observable<AdminDashboard> {
-
     let params = new HttpParams();
-
-    // ✅ Append filters only if they exist
     Object.keys(filters).forEach(key => {
-      if (filters[key]) {
-        params = params.append(key, filters[key]);
-      }
+      if (filters[key]) params = params.append(key, filters[key]);
     });
+    return this.http.get<AdminDashboard>(this.apiUrl, { headers: this.getAuthHeaders(), params });
+  }
 
-    return this.http.get<AdminDashboard>(
-      this.apiUrl,
-      {
-        headers: this.getAuthHeaders(),
-        params: params
-      }
+  getSettings(): Observable<LibrarySettings> {
+    return this.http.get<LibrarySettings>(
+      `${this.adminApiUrl}/settings`,
+      { headers: this.getAuthHeaders() }
+    );
+  }
+
+  updateSettings(settings: LibrarySettings): Observable<any> {
+    return this.http.put(
+      `${this.adminApiUrl}/settings`,
+      settings,
+      { headers: this.getAuthHeaders() }
     );
   }
 }

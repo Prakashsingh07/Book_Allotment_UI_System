@@ -15,35 +15,32 @@ export interface PendingRequest {
 })
 export class RequestService {
 
-  private baseUrl = 'https://localhost:7278/api/requests';
+  private baseUrl      = 'https://localhost:7278/api/requests';
+  private allotmentUrl = 'https://localhost:7278/api/allotments';
 
   constructor(private http: HttpClient) {}
 
-  // 🔹 USER → Request Book
   requestBook(bookId: number): Observable<any> {
     return this.http.post(`${this.baseUrl}/${bookId}`, {});
   }
 
-  // 🔹 ADMIN → Get Pending Requests
   getPending(): Observable<PendingRequest[]> {
     return this.http.get<PendingRequest[]>(`${this.baseUrl}/pending`);
   }
 
-  // 🔹 ADMIN → Approve Request
   approve(requestId: number): Observable<any> {
     return this.http.post(`${this.baseUrl}/approve/${requestId}`, {});
   }
 
-  // 🔹 ADMIN → Reject Request
   reject(requestId: number): Observable<any> {
     return this.http.post(`${this.baseUrl}/reject/${requestId}`, {});
   }
 
-  //Return
-  returnBook(id: number) {
-  return this.http.post(
-    `https://localhost:7278/api/allotments/return/${id}`,
-    {}
-  );
-}
+  returnBook(id: number): Observable<any> {
+    return this.http.post(`${this.allotmentUrl}/return/${id}`, {});
+  }
+
+  payFine(allotmentId: number): Observable<any> {
+    return this.http.post(`${this.allotmentUrl}/pay-fine/${allotmentId}`, {});
+  }
 }

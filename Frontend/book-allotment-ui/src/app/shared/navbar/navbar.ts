@@ -11,9 +11,7 @@ import { filter } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, RouterModule],
   styles: [`
-    .nav-link {
-      position: relative;
-    }
+    .nav-link { position: relative; }
     .nav-link::after {
       content: '';
       position: absolute;
@@ -26,16 +24,9 @@ import { filter } from 'rxjs/operators';
       border-radius: 9999px;
       transition: width 0.25s ease;
     }
-    .nav-link:hover::after,
-    .nav-link.active-link::after {
-      width: 70%;
-    }
-    .active-link {
-      color: #a5b4fc !important;
-    }
-    .nav-backdrop {
-      pointer-events: none;
-    }
+    .nav-link:hover::after, .nav-link.active-link::after { width: 70%; }
+    .active-link { color: #a5b4fc !important; }
+    .nav-backdrop { pointer-events: none; }
   `],
   template: `
   <nav class="sticky top-0 z-50 w-full">
@@ -119,12 +110,20 @@ import { filter } from 'rxjs/operators';
               </svg>
               Requests
             </a>
-            <!-- Admin Profile avatar link -->
+            <!-- Settings -->
+            <a routerLink="/admin/settings" routerLinkActive="active-link"
+               class="nav-link px-3 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors duration-200 flex items-center gap-1.5">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              Settings
+            </a>
+            <!-- Profile avatar -->
             <a routerLink="/admin/profile" routerLinkActive="active-link"
                class="nav-link ml-1 flex items-center gap-2 px-3 py-1.5 rounded-xl
                       text-sm font-medium text-white/70 hover:text-white
-                      hover:bg-white/5 transition-all duration-200 border border-transparent
-                      hover:border-white/10">
+                      hover:bg-white/5 transition-all duration-200 border border-transparent hover:border-white/10">
               <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-amber-500 to-orange-500
                           flex items-center justify-center text-xs font-bold text-white shadow-sm">
                 {{ username.charAt(0).toUpperCase() }}
@@ -175,8 +174,7 @@ import { filter } from 'rxjs/operators';
             <a routerLink="/user/profile" routerLinkActive="active-link"
                class="nav-link ml-1 flex items-center gap-2 px-3 py-1.5 rounded-xl
                       text-sm font-medium text-white/70 hover:text-white
-                      hover:bg-white/5 transition-all duration-200 border border-transparent
-                      hover:border-white/10">
+                      hover:bg-white/5 transition-all duration-200 border border-transparent hover:border-white/10">
               <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600
                           flex items-center justify-center text-xs font-bold text-white shadow-sm">
                 {{ username.charAt(0).toUpperCase() }}
@@ -221,22 +219,15 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.syncAuthState();
-
     this.router.events
       .pipe(filter(e => e instanceof NavigationEnd))
-      .subscribe(() => {
-        this.syncAuthState();
-        this.cdr.markForCheck();
-      });
+      .subscribe(() => { this.syncAuthState(); this.cdr.markForCheck(); });
 
     this.zone.runOutsideAngular(() => {
       window.addEventListener('scroll', () => {
         const next = window.scrollY > 10;
         if (next !== this.scrolled) {
-          this.zone.run(() => {
-            this.scrolled = next;
-            this.cdr.markForCheck();
-          });
+          this.zone.run(() => { this.scrolled = next; this.cdr.markForCheck(); });
         }
       }, { passive: true });
     });
@@ -245,19 +236,15 @@ export class NavbarComponent implements OnInit {
   private syncAuthState(): void {
     this.loggedIn = this.auth.isLoggedIn();
     this.userRole = this.auth.getRole();
-
     if (this.loggedIn) {
       const token = localStorage.getItem('token');
       if (token) {
         try {
           const payload = JSON.parse(atob(token.split('.')[1]));
-          this.username =
-            payload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] || 'U';
+          this.username = payload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] || 'U';
         } catch { this.username = 'U'; }
       }
-      if (this.userRole === 'User' && this.availableCount === 0) {
-        this.loadAvailableCount();
-      }
+      if (this.userRole === 'User' && this.availableCount === 0) this.loadAvailableCount();
     }
   }
 
@@ -270,9 +257,7 @@ export class NavbarComponent implements OnInit {
 
   logout(): void {
     this.auth.logout();
-    this.loggedIn  = false;
-    this.userRole  = null;
-    this.username  = '';
+    this.loggedIn = false; this.userRole = null; this.username = '';
     this.cdr.markForCheck();
     this.router.navigate(['/login']);
   }

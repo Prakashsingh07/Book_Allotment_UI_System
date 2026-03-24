@@ -1,4 +1,4 @@
-﻿using BookAllotment.API.DTOs;
+using BookAllotment.API.DTOs;
 using BookAllotment.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,53 +25,58 @@ namespace BookAllotment.API.Controllers
             [FromQuery] int? userId,
             [FromQuery] int? bookId)
         {
+            var now = DateTime.UtcNow;
+
             var allotmentQuery = _context.Allotments
                 .Include(a => a.Book)
                 .AsQueryable();
 
-            // 🔎 Apply Filters
-            if (fromDate.HasValue)
-                allotmentQuery = allotmentQuery
-                    .Where(a => a.AllotDate >= fromDate.Value);
+            // Apply optional filters
+            if (fromDate.HasValue) allotmentQuery = allotmentQuery.Where(a => a.AllotDate >= fromDate.Value);
+            if (toDate.HasValue)   allotmentQuery = allotmentQuery.Where(a => a.AllotDate <= toDate.Value);
+            if (userId.HasValue)   allotmentQuery = allotmentQuery.Where(a => a.UserId == userId.Value);
+            if (bookId.HasValue)   allotmentQuery = allotmentQuery.Where(a => a.BookId == bookId.Value);
 
-            if (toDate.HasValue)
-                allotmentQuery = allotmentQuery
-                    .Where(a => a.AllotDate <= toDate.Value);
+            var allotments = await allotmentQuery.ToListAsync();
 
-            if (userId.HasValue)
-                allotmentQuery = allotmentQuery
-                    .Where(a => a.UserId == userId.Value);
+            // Books currently out with users (Status = "Allotted", not returned/revoked)
+            int issuedCount = allotments.Count(a => a.Status == "Allotted");
 
-            if (bookId.HasValue)
-                allotmentQuery = allotmentQuery
-                    .Where(a => a.BookId == bookId.Value);
+            // Overdue = issued AND past a valid due date
+            int overdueCount = allotments.Count(a =>
+                a.Status == "Allotted" &&
+                a.DueDate.Year >= 2000 &&
+                a.DueDate < now
+            );
 
-            // 📊 Aggregations
-            var totalBooks = await _context.Books.CountAsync();
-            var totalUsers = await _context.Users.CountAsync();
+            // Total users and books (unfiltered — always show full counts)
+            int totalBooks = await _context.Books.CountAsync();
+            int totalUsers = await _context.Users.CountAsync();
 
-            var activeAllotments = await allotmentQuery
-                .Where(a => a.ReturnDate == null)
-                .CountAsync();
+            // Available = books with stock > 0
+            int availableCount = await _context.Books.CountAsync(b => (b.AvailableQuantity ?? 0) > 0);
 
-            var overdueBooks = await allotmentQuery
-                .Where(a => a.ReturnDate == null &&
-                            a.DueDate < DateTime.UtcNow)
-                .CountAsync();
+            // Pending book requests (unfiltered)
+            int pendingCount = await _context.BookRequests.CountAsync(r => r.Status == "Pending");
 
-            var mostBorrowedBook = await allotmentQuery
+            // Most borrowed book
+            var mostBorrowedBook = allotments
                 .GroupBy(a => a.BookId)
                 .OrderByDescending(g => g.Count())
-                .Select(g => g.First().Book.Title)
-                .FirstOrDefaultAsync();
+                .Select(g => g.First().Book?.Title)
+                .FirstOrDefault() ?? "N/A";
 
             var result = new DashboardDto
             {
-                TotalBooks = totalBooks,
-                TotalUsers = totalUsers,
-                ActiveAllotments = activeAllotments,
-                OverdueBooks = overdueBooks,
-                MostBorrowedBook = mostBorrowedBook ?? "N/A"
+                TotalBooks       = totalBooks,
+                TotalUsers       = totalUsers,
+                ActiveAllotments = issuedCount,    // backward compat
+                OverdueBooks     = overdueCount,   // backward compat
+                MostBorrowedBook = mostBorrowedBook,
+                IssuedCount      = issuedCount,
+                OverdueCount     = overdueCount,
+                PendingCount     = pendingCount,
+                AvailableCount   = availableCount
             };
 
             return Ok(result);

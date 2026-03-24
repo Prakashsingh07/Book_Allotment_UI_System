@@ -25,7 +25,6 @@ Chart.register(...registerables);
           <p class="text-indigo-200/70 mt-1 text-sm">Live system overview · Auto-refreshes every 30s</p>
         </div>
         <div class="flex items-center gap-4">
-          <!-- Countdown ring -->
           <div class="flex items-center gap-2 bg-white/5 border border-white/10 rounded-2xl px-4 py-2.5">
             <div class="relative w-8 h-8">
               <svg class="w-8 h-8 -rotate-90" viewBox="0 0 32 32">
@@ -35,9 +34,7 @@ Chart.register(...registerables);
                         [attr.stroke-dashoffset]="75.4 - (75.4 * countdown / 30)"
                         style="transition: stroke-dashoffset 1s linear"/>
               </svg>
-              <span class="absolute inset-0 flex items-center justify-center text-xs font-bold text-indigo-300">
-                {{ countdown }}
-              </span>
+              <span class="absolute inset-0 flex items-center justify-center text-xs font-bold text-indigo-300">{{ countdown }}</span>
             </div>
             <div>
               <p class="text-white/40 text-xs leading-none">Next refresh</p>
@@ -53,10 +50,8 @@ Chart.register(...registerables);
                          bg-white/10 border border-white/10 text-white/70
                          hover:bg-white/15 hover:text-white transition-all
                          disabled:opacity-40 disabled:cursor-not-allowed">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" [class.animate-spin]="loading"
-                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" [class.animate-spin]="loading" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
             </svg>
             Refresh
           </button>
@@ -72,32 +67,21 @@ Chart.register(...registerables);
         <div>
           <label class="block text-xs font-semibold text-white/50 mb-1.5">From Date</label>
           <input type="date" formControlName="fromDate"
-                 class="w-full bg-white/10 border border-white/10 text-white rounded-xl px-4 py-2.5 text-sm
-                        focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+                 class="w-full bg-white/10 border border-white/10 text-white rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
         </div>
         <div>
           <label class="block text-xs font-semibold text-white/50 mb-1.5">To Date</label>
           <input type="date" formControlName="toDate"
-                 class="w-full bg-white/10 border border-white/10 text-white rounded-xl px-4 py-2.5 text-sm
-                        focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+                 class="w-full bg-white/10 border border-white/10 text-white rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
         </div>
         <div class="flex items-end gap-3">
-          <button type="submit"
-                  class="flex-1 py-2.5 rounded-xl text-sm font-bold
-                         bg-gradient-to-r from-indigo-500 to-purple-600 text-white
-                         hover:from-indigo-400 hover:to-purple-500 transition-all shadow-lg shadow-indigo-500/20">
-            Apply Filter
-          </button>
-          <button type="button" (click)="clearFilter()"
-                  class="px-4 py-2.5 rounded-xl text-sm font-bold bg-white/10 text-white/60 border border-white/10
-                         hover:bg-white/15 hover:text-white transition-all">
-            Clear
-          </button>
+          <button type="submit" class="flex-1 py-2.5 rounded-xl text-sm font-bold bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:from-indigo-400 hover:to-purple-500 transition-all shadow-lg shadow-indigo-500/20">Apply Filter</button>
+          <button type="button" (click)="clearFilter()" class="px-4 py-2.5 rounded-xl text-sm font-bold bg-white/10 text-white/60 border border-white/10 hover:bg-white/15 hover:text-white transition-all">Clear</button>
         </div>
       </div>
     </form>
 
-    <!-- Skeleton loader (first load only) -->
+    <!-- Skeleton loader -->
     <div *ngIf="loading && !dashboard" class="space-y-6">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div *ngFor="let i of [1,2,3,4]" class="h-24 bg-white/5 rounded-2xl border border-white/10 animate-pulse"></div>
@@ -114,9 +98,7 @@ Chart.register(...registerables);
       <!-- Stats Grid -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
 
-        <div class="relative bg-gradient-to-br from-indigo-600/30 to-indigo-700/30 backdrop-blur-sm
-                    rounded-2xl border border-indigo-500/20 p-5 overflow-hidden shadow-lg
-                    hover:border-indigo-400/40 hover:-translate-y-0.5 transition-all duration-200">
+        <div class="relative bg-gradient-to-br from-indigo-600/30 to-indigo-700/30 backdrop-blur-sm rounded-2xl border border-indigo-500/20 p-5 overflow-hidden shadow-lg hover:border-indigo-400/40 hover:-translate-y-0.5 transition-all duration-200">
           <div class="absolute -bottom-4 -right-4 w-20 h-20 bg-indigo-500/10 rounded-full blur-xl"></div>
           <div class="w-10 h-10 rounded-xl bg-indigo-500/30 flex items-center justify-center mb-3">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-indigo-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -127,9 +109,7 @@ Chart.register(...registerables);
           <p class="text-3xl font-extrabold text-white">{{ dashboard.totalUsers }}</p>
         </div>
 
-        <div class="relative bg-gradient-to-br from-purple-600/30 to-purple-700/30 backdrop-blur-sm
-                    rounded-2xl border border-purple-500/20 p-5 overflow-hidden shadow-lg
-                    hover:border-purple-400/40 hover:-translate-y-0.5 transition-all duration-200">
+        <div class="relative bg-gradient-to-br from-purple-600/30 to-purple-700/30 backdrop-blur-sm rounded-2xl border border-purple-500/20 p-5 overflow-hidden shadow-lg hover:border-purple-400/40 hover:-translate-y-0.5 transition-all duration-200">
           <div class="absolute -bottom-4 -right-4 w-20 h-20 bg-purple-500/10 rounded-full blur-xl"></div>
           <div class="w-10 h-10 rounded-xl bg-purple-500/30 flex items-center justify-center mb-3">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-purple-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -140,9 +120,7 @@ Chart.register(...registerables);
           <p class="text-3xl font-extrabold text-white">{{ dashboard.totalBooks }}</p>
         </div>
 
-        <div class="relative bg-gradient-to-br from-amber-600/30 to-amber-700/30 backdrop-blur-sm
-                    rounded-2xl border border-amber-500/20 p-5 overflow-hidden shadow-lg
-                    hover:border-amber-400/40 hover:-translate-y-0.5 transition-all duration-200">
+        <div class="relative bg-gradient-to-br from-amber-600/30 to-amber-700/30 backdrop-blur-sm rounded-2xl border border-amber-500/20 p-5 overflow-hidden shadow-lg hover:border-amber-400/40 hover:-translate-y-0.5 transition-all duration-200">
           <div class="absolute -bottom-4 -right-4 w-20 h-20 bg-amber-500/10 rounded-full blur-xl"></div>
           <div class="flex items-center justify-between mb-3">
             <div class="w-10 h-10 rounded-xl bg-amber-500/30 flex items-center justify-center">
@@ -150,17 +128,13 @@ Chart.register(...registerables);
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
               </svg>
             </div>
-            <span *ngIf="dashboard.pendingCount > 0" class="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
-              Action needed
-            </span>
+            <span *ngIf="pendingCount > 0" class="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">Action needed</span>
           </div>
           <p class="text-xs text-amber-300 font-medium mb-1">Pending Requests</p>
-          <p class="text-3xl font-extrabold text-white">{{ dashboard.pendingCount }}</p>
+          <p class="text-3xl font-extrabold text-white">{{ pendingCount }}</p>
         </div>
 
-        <div class="relative bg-gradient-to-br from-rose-600/30 to-rose-700/30 backdrop-blur-sm
-                    rounded-2xl border border-rose-500/20 p-5 overflow-hidden shadow-lg
-                    hover:border-rose-400/40 hover:-translate-y-0.5 transition-all duration-200">
+        <div class="relative bg-gradient-to-br from-rose-600/30 to-rose-700/30 backdrop-blur-sm rounded-2xl border border-rose-500/20 p-5 overflow-hidden shadow-lg hover:border-rose-400/40 hover:-translate-y-0.5 transition-all duration-200">
           <div class="absolute -bottom-4 -right-4 w-20 h-20 bg-rose-500/10 rounded-full blur-xl"></div>
           <div class="flex items-center justify-between mb-3">
             <div class="w-10 h-10 rounded-xl bg-rose-500/30 flex items-center justify-center">
@@ -168,12 +142,10 @@ Chart.register(...registerables);
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <span *ngIf="dashboard.overdueCount > 0" class="text-xs font-bold px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">
-              Overdue
-            </span>
+            <span *ngIf="overdueCount > 0" class="text-xs font-bold px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">Overdue</span>
           </div>
           <p class="text-xs text-rose-300 font-medium mb-1">Overdue Books</p>
-          <p class="text-3xl font-extrabold text-white">{{ dashboard.overdueCount }}</p>
+          <p class="text-3xl font-extrabold text-white">{{ overdueCount }}</p>
         </div>
 
       </div>
@@ -196,25 +168,16 @@ Chart.register(...registerables);
             </div>
             <div class="flex flex-col gap-3 flex-1">
               <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <div class="w-3 h-3 rounded-full bg-indigo-400"></div>
-                  <span class="text-white/60 text-sm">Available</span>
-                </div>
-                <span class="text-white font-bold text-sm">{{ availableBooks }}</span>
+                <div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-indigo-400"></div><span class="text-white/60 text-sm">Available</span></div>
+                <span class="text-white font-bold text-sm">{{ availableCount }}</span>
               </div>
               <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <div class="w-3 h-3 rounded-full bg-amber-400"></div>
-                  <span class="text-white/60 text-sm">Issued</span>
-                </div>
-                <span class="text-white font-bold text-sm">{{ issuedBooks }}</span>
+                <div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-amber-400"></div><span class="text-white/60 text-sm">Issued</span></div>
+                <span class="text-white font-bold text-sm">{{ issuedCount }}</span>
               </div>
               <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <div class="w-3 h-3 rounded-full bg-rose-400"></div>
-                  <span class="text-white/60 text-sm">Overdue</span>
-                </div>
-                <span class="text-white font-bold text-sm">{{ dashboard.overdueCount }}</span>
+                <div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-rose-400"></div><span class="text-white/60 text-sm">Overdue</span></div>
+                <span class="text-white font-bold text-sm">{{ overdueCount }}</span>
               </div>
               <div class="mt-2 pt-3 border-t border-white/10">
                 <div class="flex justify-between text-xs text-white/40 mb-1">
@@ -222,8 +185,7 @@ Chart.register(...registerables);
                   <span>{{ utilisationRate }}%</span>
                 </div>
                 <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
-                  <div class="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-700"
-                       [style.width.%]="utilisationRate"></div>
+                  <div class="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-700" [style.width.%]="utilisationRate"></div>
                 </div>
               </div>
             </div>
@@ -247,67 +209,53 @@ Chart.register(...registerables);
           <h3 class="text-white/70 text-sm font-bold mb-4">System Health</h3>
           <div class="space-y-4">
             <div>
-              <div class="flex justify-between text-xs mb-1.5">
-                <span class="text-white/50">Users registered</span>
-                <span class="text-white font-semibold">{{ dashboard.totalUsers }}</span>
-              </div>
-              <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-indigo-500 to-indigo-400 rounded-full" [style.width.%]="100"></div>
-              </div>
+              <div class="flex justify-between text-xs mb-1.5"><span class="text-white/50">Users registered</span><span class="text-white font-semibold">{{ dashboard.totalUsers }}</span></div>
+              <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-indigo-500 to-indigo-400 rounded-full" [style.width.%]="100"></div></div>
             </div>
             <div>
-              <div class="flex justify-between text-xs mb-1.5">
-                <span class="text-white/50">Books in system</span>
-                <span class="text-white font-semibold">{{ dashboard.totalBooks }}</span>
-              </div>
-              <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-purple-500 to-purple-400 rounded-full" [style.width.%]="100"></div>
-              </div>
+              <div class="flex justify-between text-xs mb-1.5"><span class="text-white/50">Books in system</span><span class="text-white font-semibold">{{ dashboard.totalBooks }}</span></div>
+              <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-purple-500 to-purple-400 rounded-full" [style.width.%]="100"></div></div>
             </div>
             <div>
-              <div class="flex justify-between text-xs mb-1.5">
-                <span class="text-white/50">Pending / Total users</span>
-                <span class="text-amber-400 font-semibold">{{ pendingRate }}%</span>
-              </div>
-              <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-amber-500 to-amber-400 rounded-full transition-all duration-700" [style.width.%]="pendingRate"></div>
-              </div>
+              <div class="flex justify-between text-xs mb-1.5"><span class="text-white/50">Pending / Total users</span><span class="text-amber-400 font-semibold">{{ pendingRate }}%</span></div>
+              <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-amber-500 to-amber-400 rounded-full transition-all duration-700" [style.width.%]="pendingRate"></div></div>
             </div>
             <div>
-              <div class="flex justify-between text-xs mb-1.5">
-                <span class="text-white/50">Overdue / Issued books</span>
-                <span class="text-rose-400 font-semibold">{{ overdueRate }}%</span>
-              </div>
-              <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-rose-500 to-rose-400 rounded-full transition-all duration-700" [style.width.%]="overdueRate"></div>
-              </div>
+              <div class="flex justify-between text-xs mb-1.5"><span class="text-white/50">Overdue / Issued books</span><span class="text-rose-400 font-semibold">{{ overdueRate }}%</span></div>
+              <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-rose-500 to-rose-400 rounded-full transition-all duration-700" [style.width.%]="overdueRate"></div></div>
             </div>
           </div>
         </div>
 
+        <!-- Snapshot — real data from backend -->
         <div class="md:col-span-2 bg-white/5 backdrop-blur-md rounded-3xl border border-white/10 p-6 shadow-xl">
           <h3 class="text-white/70 text-sm font-bold mb-4">Snapshot</h3>
           <div class="grid grid-cols-2 gap-4">
+
             <div class="bg-indigo-500/10 border border-indigo-500/20 rounded-2xl p-4 flex flex-col gap-1">
               <p class="text-indigo-300 text-xs font-semibold uppercase tracking-wider">Books Available</p>
-              <p class="text-3xl font-extrabold text-white">{{ availableBooks }}</p>
+              <p class="text-3xl font-extrabold text-white">{{ availableCount }}</p>
               <p class="text-white/30 text-xs">Ready to be issued</p>
             </div>
+
             <div class="bg-purple-500/10 border border-purple-500/20 rounded-2xl p-4 flex flex-col gap-1">
               <p class="text-purple-300 text-xs font-semibold uppercase tracking-wider">Currently Issued</p>
-              <p class="text-3xl font-extrabold text-white">{{ issuedBooks }}</p>
+              <p class="text-3xl font-extrabold text-white">{{ issuedCount }}</p>
               <p class="text-white/30 text-xs">With users right now</p>
             </div>
+
             <div class="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-4 flex flex-col gap-1">
               <p class="text-amber-300 text-xs font-semibold uppercase tracking-wider">Awaiting Approval</p>
-              <p class="text-3xl font-extrabold text-white">{{ dashboard.pendingCount }}</p>
+              <p class="text-3xl font-extrabold text-white">{{ pendingCount }}</p>
               <p class="text-white/30 text-xs">Requests to review</p>
             </div>
+
             <div class="bg-rose-500/10 border border-rose-500/20 rounded-2xl p-4 flex flex-col gap-1">
               <p class="text-rose-300 text-xs font-semibold uppercase tracking-wider">Overdue Returns</p>
-              <p class="text-3xl font-extrabold text-white">{{ dashboard.overdueCount }}</p>
+              <p class="text-3xl font-extrabold text-white">{{ overdueCount }}</p>
               <p class="text-white/30 text-xs">Past their due date</p>
             </div>
+
           </div>
         </div>
 
@@ -320,48 +268,50 @@ Chart.register(...registerables);
 export class AdminDashboardComponent implements OnInit, OnDestroy {
   filterForm!: FormGroup;
   dashboard: any = null;
-  loading = false;
-  countdown = 30;
-  adminName = 'Admin';
+  loading    = false;
+  countdown  = 30;
+  adminName  = 'Admin';
 
-  private barChart: Chart | null = null;
+  private barChart:      Chart | null = null;
   private doughnutChart: Chart | null = null;
   private timerSub!: Subscription;
 
   constructor(
-    private fb: FormBuilder,
+    private fb:           FormBuilder,
     private adminService: AdminService,
-    private zone: NgZone
+    private zone:         NgZone
   ) {}
 
-  get availableBooks(): number {
-    if (!this.dashboard) return 0;
-    return Math.max(0, this.dashboard.totalBooks - this.issuedBooks);
-  }
+  // ── Real getters using backend fields directly ─────────────────────
 
-  get issuedBooks(): number {
-    if (!this.dashboard) return 0;
-    return (this.dashboard.overdueCount || 0) + Math.max(0, (this.dashboard.totalBooks || 0) - (this.dashboard.totalBooks || 0) + (this.dashboard.pendingCount || 0));
-  }
+  /** Books currently out with users (Status = Allotted) */
+  get issuedCount(): number   { return this.dashboard?.issuedCount   ?? this.dashboard?.activeAllotments ?? 0; }
+
+  /** Pending book requests */
+  get pendingCount(): number  { return this.dashboard?.pendingCount  ?? 0; }
+
+  /** Books currently overdue */
+  get overdueCount(): number  { return this.dashboard?.overdueCount  ?? this.dashboard?.overdueBooks ?? 0; }
+
+  /** Books with stock available */
+  get availableCount(): number { return this.dashboard?.availableCount ?? Math.max(0, (this.dashboard?.totalBooks ?? 0) - this.issuedCount); }
 
   get utilisationRate(): number {
     if (!this.dashboard?.totalBooks) return 0;
-    return Math.min(100, Math.round(((this.dashboard.totalBooks - this.availableBooks) / this.dashboard.totalBooks) * 100));
+    return Math.min(100, Math.round((this.issuedCount / this.dashboard.totalBooks) * 100));
   }
 
   get pendingRate(): number {
     if (!this.dashboard?.totalUsers) return 0;
-    return Math.min(100, Math.round((this.dashboard.pendingCount / this.dashboard.totalUsers) * 100));
+    return Math.min(100, Math.round((this.pendingCount / this.dashboard.totalUsers) * 100));
   }
 
   get overdueRate(): number {
-    const issued = this.issuedBooks;
-    if (!issued) return 0;
-    return Math.min(100, Math.round((this.dashboard.overdueCount / issued) * 100));
+    if (!this.issuedCount) return 0;
+    return Math.min(100, Math.round((this.overdueCount / this.issuedCount) * 100));
   }
 
   ngOnInit(): void {
-    // Decode admin name from JWT token
     try {
       const token = localStorage.getItem('token');
       if (token) {
@@ -376,10 +326,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     this.timerSub = interval(1000).subscribe(() => {
       this.zone.run(() => {
         this.countdown--;
-        if (this.countdown <= 0) {
-          this.countdown = 30;
-          this.loadDashboard();
-        }
+        if (this.countdown <= 0) { this.countdown = 30; this.loadDashboard(); }
       });
     });
   }
@@ -389,127 +336,65 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     this.adminService.getDashboard(this.filterForm.value).subscribe({
       next: (res) => {
         this.dashboard = res;
-        this.loading = false;
+        this.loading   = false;
         setTimeout(() => this.updateCharts(), 50);
       },
       error: () => { this.loading = false; }
     });
   }
 
-  applyFilters() { this.countdown = 30; this.loadDashboard(); }
+  applyFilters()  { this.countdown = 30; this.loadDashboard(); }
   manualRefresh() { this.countdown = 30; this.loadDashboard(); }
-  clearFilter() {
-    this.filterForm.reset({ fromDate: '', toDate: '' });
-    this.loadDashboard();
-  }
+  clearFilter()   { this.filterForm.reset({ fromDate: '', toDate: '' }); this.loadDashboard(); }
 
   updateCharts() { this.updateDoughnut(); this.updateBar(); }
 
   updateDoughnut() {
-    const available = this.availableBooks;
-    const issued = Math.max(0, this.issuedBooks - (this.dashboard?.overdueCount || 0));
-    const overdue = this.dashboard?.overdueCount || 0;
-    const data = [available, issued, overdue];
+    const data = [this.availableCount, Math.max(0, this.issuedCount - this.overdueCount), this.overdueCount];
 
     if (this.doughnutChart) {
       this.doughnutChart.data.datasets[0].data = data;
       this.doughnutChart.update('active');
       return;
     }
-
     const canvas = document.getElementById('doughnutChart') as HTMLCanvasElement;
     if (!canvas) return;
-
     this.doughnutChart = new Chart(canvas, {
       type: 'doughnut',
       data: {
         labels: ['Available', 'Issued', 'Overdue'],
-        datasets: [{
-          data,
-          backgroundColor: ['rgba(99,102,241,0.8)', 'rgba(245,158,11,0.8)', 'rgba(239,68,68,0.8)'],
-          borderColor: ['rgba(99,102,241,1)', 'rgba(245,158,11,1)', 'rgba(239,68,68,1)'],
-          borderWidth: 2,
-          hoverOffset: 6
-        }]
+        datasets: [{ data, backgroundColor: ['rgba(99,102,241,0.8)', 'rgba(245,158,11,0.8)', 'rgba(239,68,68,0.8)'], borderColor: ['rgba(99,102,241,1)', 'rgba(245,158,11,1)', 'rgba(239,68,68,1)'], borderWidth: 2, hoverOffset: 6 }]
       },
       options: {
-        responsive: true,
-        cutout: '72%',
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            backgroundColor: 'rgba(15,15,30,0.9)',
-            titleColor: '#fff',
-            bodyColor: 'rgba(255,255,255,0.6)',
-            borderColor: 'rgba(255,255,255,0.1)',
-            borderWidth: 1,
-            padding: 12,
-            cornerRadius: 12
-          }
-        },
+        responsive: true, cutout: '72%',
+        plugins: { legend: { display: false }, tooltip: { backgroundColor: 'rgba(15,15,30,0.9)', titleColor: '#fff', bodyColor: 'rgba(255,255,255,0.6)', borderColor: 'rgba(255,255,255,0.1)', borderWidth: 1, padding: 12, cornerRadius: 12 } },
         animation: { duration: 600, easing: 'easeInOutQuart' }
       }
     });
   }
 
   updateBar() {
-    const data = [
-      this.dashboard?.totalUsers || 0,
-      this.dashboard?.totalBooks || 0,
-      this.dashboard?.pendingCount || 0,
-      this.dashboard?.overdueCount || 0
-    ];
+    const data = [this.dashboard?.totalUsers ?? 0, this.dashboard?.totalBooks ?? 0, this.pendingCount, this.overdueCount];
 
     if (this.barChart) {
       this.barChart.data.datasets[0].data = data;
       this.barChart.update('active');
       return;
     }
-
     const canvas = document.getElementById('barChart') as HTMLCanvasElement;
     if (!canvas) return;
-
     this.barChart = new Chart(canvas, {
       type: 'bar',
       data: {
         labels: ['Users', 'Books', 'Pending', 'Overdue'],
-        datasets: [{
-          label: 'Count',
-          data,
-          backgroundColor: ['rgba(99,102,241,0.7)', 'rgba(139,92,246,0.7)', 'rgba(245,158,11,0.7)', 'rgba(239,68,68,0.7)'],
-          borderColor: ['rgba(99,102,241,1)', 'rgba(139,92,246,1)', 'rgba(245,158,11,1)', 'rgba(239,68,68,1)'],
-          borderWidth: 2,
-          borderRadius: 10,
-          borderSkipped: false,
-        }]
+        datasets: [{ label: 'Count', data, backgroundColor: ['rgba(99,102,241,0.7)', 'rgba(139,92,246,0.7)', 'rgba(245,158,11,0.7)', 'rgba(239,68,68,0.7)'], borderColor: ['rgba(99,102,241,1)', 'rgba(139,92,246,1)', 'rgba(245,158,11,1)', 'rgba(239,68,68,1)'], borderWidth: 2, borderRadius: 10, borderSkipped: false }]
       },
       options: {
-        responsive: true,
-        maintainAspectRatio: true,
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            backgroundColor: 'rgba(15,15,30,0.9)',
-            titleColor: '#fff',
-            bodyColor: 'rgba(255,255,255,0.6)',
-            borderColor: 'rgba(255,255,255,0.1)',
-            borderWidth: 1,
-            padding: 12,
-            cornerRadius: 12
-          }
-        },
+        responsive: true, maintainAspectRatio: true,
+        plugins: { legend: { display: false }, tooltip: { backgroundColor: 'rgba(15,15,30,0.9)', titleColor: '#fff', bodyColor: 'rgba(255,255,255,0.6)', borderColor: 'rgba(255,255,255,0.1)', borderWidth: 1, padding: 12, cornerRadius: 12 } },
         scales: {
-          x: {
-            grid: { color: 'rgba(255,255,255,0.04)' },
-            ticks: { color: 'rgba(255,255,255,0.5)', font: { size: 12 } },
-            border: { color: 'rgba(255,255,255,0.05)' }
-          },
-          y: {
-            grid: { color: 'rgba(255,255,255,0.04)' },
-            ticks: { color: 'rgba(255,255,255,0.5)', font: { size: 11 }, stepSize: 1, precision: 0 },
-            border: { color: 'rgba(255,255,255,0.05)' },
-            beginAtZero: true
-          }
+          x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: 'rgba(255,255,255,0.5)', font: { size: 12 } }, border: { color: 'rgba(255,255,255,0.05)' } },
+          y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: 'rgba(255,255,255,0.5)', font: { size: 11 }, stepSize: 1, precision: 0 }, border: { color: 'rgba(255,255,255,0.05)' }, beginAtZero: true }
         },
         animation: { duration: 500, easing: 'easeInOutQuart' }
       }
@@ -517,8 +402,8 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.timerSub) this.timerSub.unsubscribe();
-    if (this.barChart) this.barChart.destroy();
+    if (this.timerSub)      this.timerSub.unsubscribe();
+    if (this.barChart)      this.barChart.destroy();
     if (this.doughnutChart) this.doughnutChart.destroy();
   }
 }

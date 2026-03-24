@@ -53,12 +53,11 @@ import { UserService } from '../../../core/services/user.service';
         </div>
         <div>
           <h3 class="text-white font-bold">Add New User</h3>
-          <p class="text-white/40 text-xs">Fill in the details to create a new account</p>
+          <p class="text-white/40 text-xs">New accounts are created with the User role by default</p>
         </div>
       </div>
-
       <form #addForm="ngForm">
-        <div class="grid md:grid-cols-4 gap-4">
+        <div class="grid md:grid-cols-3 gap-4">
           <div>
             <label class="block text-xs font-semibold text-white/40 mb-1.5 uppercase tracking-wider">Full Name</label>
             <input type="text" name="name" required minlength="3"
@@ -72,15 +71,6 @@ import { UserService } from '../../../core/services/user.service';
                    [(ngModel)]="newUser.email" placeholder="e.g. john@email.com"
                    class="w-full bg-white/10 border border-white/10 text-white placeholder-white/30 rounded-xl px-4 py-2.5 text-sm
                           focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent" />
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-white/40 mb-1.5 uppercase tracking-wider">Role</label>
-            <select name="role" [(ngModel)]="newUser.role"
-                    class="w-full bg-white/10 border border-white/10 text-white rounded-xl px-4 py-2.5 text-sm
-                           focus:outline-none focus:ring-2 focus:ring-indigo-400">
-              <option value="User" class="bg-slate-800">User</option>
-              <option value="Admin" class="bg-slate-800">Admin</option>
-            </select>
           </div>
           <div class="flex items-end">
             <button type="button" (click)="addUser(addForm)" [disabled]="addForm.invalid"
@@ -102,7 +92,7 @@ import { UserService } from '../../../core/services/user.service';
     <!-- Search + Table -->
     <div class="bg-white/5 backdrop-blur-md rounded-3xl border border-white/10 overflow-hidden shadow-2xl">
 
-      <!-- Table Toolbar -->
+      <!-- Toolbar -->
       <div class="px-6 py-4 border-b border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h2 class="text-white font-bold">All Users</h2>
@@ -132,99 +122,127 @@ import { UserService } from '../../../core/services/user.service';
           </thead>
           <tbody class="divide-y divide-white/5">
 
-            <tr *ngFor="let user of paginatedUsers()" class="hover:bg-white/5 transition-colors group">
+            <tr *ngFor="let user of paginatedUsers()"
+                class="hover:bg-white/5 transition-colors group"
+                [class.bg-indigo-500/5]="isSelf(user.id)">
 
               <!-- User -->
               <td class="px-6 py-4">
                 <div class="flex items-center gap-3">
-                  <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600
-                              flex items-center justify-center text-sm font-bold text-white flex-shrink-0 shadow-lg">
+                  <div class="w-9 h-9 rounded-xl flex items-center justify-center text-sm font-bold text-white flex-shrink-0 shadow-lg"
+                       [ngClass]="isSelf(user.id)
+                         ? 'bg-gradient-to-br from-amber-500 to-orange-500'
+                         : 'bg-gradient-to-br from-indigo-500 to-purple-600'">
                     {{ user.name?.charAt(0)?.toUpperCase() }}
                   </div>
-                  <ng-container *ngIf="editId !== user.id">
+                  <div class="flex items-center gap-2">
                     <span class="font-semibold text-white text-sm">{{ user.name }}</span>
-                  </ng-container>
-                  <ng-container *ngIf="editId === user.id">
-                    <input [(ngModel)]="editableUser.name"
-                           class="bg-white/10 border border-indigo-400/50 text-white rounded-lg px-3 py-1.5 text-sm
-                                  focus:outline-none focus:ring-2 focus:ring-indigo-400 w-40" />
-                  </ng-container>
+                    <span *ngIf="isSelf(user.id)"
+                          class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold
+                                 bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                      👑 You
+                    </span>
+                  </div>
                 </div>
               </td>
 
               <!-- Email -->
-              <td class="px-6 py-4 text-sm text-white/60">
-                <ng-container *ngIf="editId !== user.id">{{ user.email }}</ng-container>
-                <ng-container *ngIf="editId === user.id">
-                  <input [(ngModel)]="editableUser.email"
-                         class="bg-white/10 border border-indigo-400/50 text-white rounded-lg px-3 py-1.5 text-sm
-                                focus:outline-none focus:ring-2 focus:ring-indigo-400 w-52" />
-                </ng-container>
-              </td>
+              <td class="px-6 py-4 text-sm text-white/60">{{ user.email }}</td>
 
               <!-- Role -->
               <td class="px-6 py-4">
-                <ng-container *ngIf="editId !== user.id">
-                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border"
-                        [ngClass]="{
-                          'bg-amber-500/15 text-amber-400 border-amber-500/25': user.role === 'Admin',
-                          'bg-indigo-500/15 text-indigo-400 border-indigo-500/25': user.role === 'User'
-                        }">
-                    <span class="w-1.5 h-1.5 rounded-full"
-                          [ngClass]="user.role === 'Admin' ? 'bg-amber-400' : 'bg-indigo-400'"></span>
-                    {{ user.role }}
-                  </span>
-                </ng-container>
-                <ng-container *ngIf="editId === user.id">
-                  <select [(ngModel)]="editableUser.role"
-                          class="bg-slate-800 border border-indigo-400/50 text-white rounded-lg px-3 py-1.5 text-sm
-                                 focus:outline-none focus:ring-2 focus:ring-indigo-400">
-                    <option value="User">User</option>
-                    <option value="Admin">Admin</option>
-                  </select>
-                </ng-container>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border"
+                      [ngClass]="{
+                        'bg-amber-500/15 text-amber-400 border-amber-500/25': user.role === 'Admin',
+                        'bg-indigo-500/15 text-indigo-400 border-indigo-500/25': user.role === 'User'
+                      }">
+                  <span class="w-1.5 h-1.5 rounded-full"
+                        [ngClass]="user.role === 'Admin' ? 'bg-amber-400' : 'bg-indigo-400'"></span>
+                  {{ user.role }}
+                </span>
               </td>
 
               <!-- Actions -->
               <td class="px-6 py-4">
                 <div class="flex items-center justify-center gap-2">
-                  <ng-container *ngIf="editId !== user.id">
-                    <button (click)="startEdit(user)"
-                            class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold
-                                   bg-amber-500/15 text-amber-400 border border-amber-500/25
-                                   hover:bg-amber-500/25 transition-all">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                      </svg>
-                      Edit
-                    </button>
-                    <button (click)="delete(user.id)"
-                            class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold
-                                   bg-rose-500/15 text-rose-400 border border-rose-500/25
-                                   hover:bg-rose-500/25 transition-all">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                      </svg>
-                      Delete
-                    </button>
+
+                  <!-- ── Own row: both buttons disabled ── -->
+                  <ng-container *ngIf="isSelf(user.id)">
+                    <div class="relative group/edit">
+                      <button disabled
+                              class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold
+                                     bg-white/5 text-white/20 border border-white/10 cursor-not-allowed">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                        Edit
+                      </button>
+                      <div class="absolute bottom-full left-0 mb-2 hidden group-hover/edit:block z-10
+                                  bg-slate-800 border border-white/10 rounded-xl px-3 py-2 text-xs text-white/70
+                                  whitespace-nowrap shadow-xl pointer-events-none">
+                        Use the Profile page to edit your own account
+                        <div class="absolute top-full left-4 border-4 border-transparent border-t-slate-800"></div>
+                      </div>
+                    </div>
+                    <div class="relative group/del">
+                      <button disabled
+                              class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold
+                                     bg-white/5 text-white/20 border border-white/10 cursor-not-allowed">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                        Delete
+                      </button>
+                      <div class="absolute bottom-full right-0 mb-2 hidden group-hover/del:block z-10
+                                  bg-slate-800 border border-white/10 rounded-xl px-3 py-2 text-xs text-white/70
+                                  whitespace-nowrap shadow-xl pointer-events-none">
+                        You cannot delete your own account
+                        <div class="absolute top-full right-4 border-4 border-transparent border-t-slate-800"></div>
+                      </div>
+                    </div>
                   </ng-container>
-                  <ng-container *ngIf="editId === user.id">
-                    <button (click)="saveEdit()"
-                            class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold
-                                   bg-emerald-500/15 text-emerald-400 border border-emerald-500/25
-                                   hover:bg-emerald-500/25 transition-all">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                      </svg>
-                      Save
-                    </button>
-                    <button (click)="cancelEdit()"
-                            class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold
-                                   bg-white/10 text-white/50 border border-white/10
-                                   hover:bg-white/15 transition-all">
-                      Cancel
-                    </button>
+
+                  <!-- ── Other users: normal Edit / Save / Cancel / Delete ── -->
+                  <ng-container *ngIf="!isSelf(user.id)">
+                    <ng-container *ngIf="editId !== user.id">
+                      <button (click)="startEdit(user)"
+                              class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold
+                                     bg-amber-500/15 text-amber-400 border border-amber-500/25
+                                     hover:bg-amber-500/25 transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                        Edit
+                      </button>
+                      <button (click)="delete(user.id)"
+                              class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold
+                                     bg-rose-500/15 text-rose-400 border border-rose-500/25
+                                     hover:bg-rose-500/25 transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                        Delete
+                      </button>
+                    </ng-container>
+                    <ng-container *ngIf="editId === user.id">
+                      <button (click)="saveEdit()"
+                              class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold
+                                     bg-emerald-500/15 text-emerald-400 border border-emerald-500/25
+                                     hover:bg-emerald-500/25 transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        Save
+                      </button>
+                      <button (click)="cancelEdit()"
+                              class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold
+                                     bg-white/10 text-white/50 border border-white/10
+                                     hover:bg-white/15 transition-all">
+                        Cancel
+                      </button>
+                    </ng-container>
                   </ng-container>
+
                 </div>
               </td>
             </tr>
@@ -274,7 +292,7 @@ import { UserService } from '../../../core/services/user.service';
 export class ManageUsersComponent implements OnInit {
   users: any[] = [];
   searchTerm = '';
-  newUser = { name: '', email: '', role: 'User' };
+  newUser = { name: '', email: '' };   // role removed — always 'User'
   editId: number | null = null;
   editableUser: any = {};
   toastMessage = '';
@@ -283,9 +301,29 @@ export class ManageUsersComponent implements OnInit {
   pageSize = 5;
   Math = Math;
 
+  currentAdminId: number = 0;
+
   constructor(private userService: UserService) {}
 
-  ngOnInit(): void { this.loadUsers(); }
+  ngOnInit(): void {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const idClaim =
+          payload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'] ||
+          payload['nameid'] ||
+          payload['sub'] ||
+          payload['id'];
+        this.currentAdminId = Number(idClaim) || 0;
+      } catch { this.currentAdminId = 0; }
+    }
+    this.loadUsers();
+  }
+
+  isSelf(userId: number): boolean {
+    return this.currentAdminId > 0 && userId === this.currentAdminId;
+  }
 
   loadUsers() {
     this.userService.getUsers().subscribe(res => this.users = res);
@@ -293,8 +331,8 @@ export class ManageUsersComponent implements OnInit {
 
   filteredUsers() {
     return this.users.filter(u =>
-      u.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-      u.email.toLowerCase().includes(this.searchTerm.toLowerCase())
+      u.name?.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      u.email?.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
 
@@ -304,8 +342,8 @@ export class ManageUsersComponent implements OnInit {
   }
 
   totalPages() { return Math.ceil(this.filteredUsers().length / this.pageSize) || 1; }
-  nextPage() { if (this.currentPage < this.totalPages()) this.currentPage++; }
-  prevPage() { if (this.currentPage > 1) this.currentPage--; }
+  nextPage()   { if (this.currentPage < this.totalPages()) this.currentPage++; }
+  prevPage()   { if (this.currentPage > 1) this.currentPage--; }
 
   showToast(message: string, success = true) {
     this.toastMessage = message;
@@ -315,9 +353,11 @@ export class ManageUsersComponent implements OnInit {
 
   addUser(formRef: any) {
     if (formRef.invalid) return;
-    this.userService.addUser(this.newUser).subscribe({
+    // Always create as User — role is not selectable
+    const payload = { ...this.newUser, role: 'User' };
+    this.userService.addUser(payload).subscribe({
       next: () => {
-        this.newUser = { name: '', email: '', role: 'User' };
+        this.newUser = { name: '', email: '' };
         this.loadUsers();
         this.showToast('User added successfully!');
       },
@@ -326,7 +366,7 @@ export class ManageUsersComponent implements OnInit {
   }
 
   startEdit(user: any) { this.editId = user.id; this.editableUser = { ...user }; }
-  cancelEdit() { this.editId = null; }
+  cancelEdit()          { this.editId = null; }
 
   saveEdit() {
     if (!this.editId) return;
@@ -337,10 +377,14 @@ export class ManageUsersComponent implements OnInit {
   }
 
   delete(id: number) {
-    if (confirm('Delete this user?')) {
+    if (this.isSelf(id)) {
+      this.showToast('You cannot delete your own account.', false);
+      return;
+    }
+    if (confirm('Are you sure you want to delete this user?')) {
       this.userService.deleteUser(id).subscribe({
         next: () => { this.loadUsers(); this.showToast('User deleted.'); },
-        error: () => this.showToast('Failed to delete user.', false)
+        error: (err) => this.showToast(err?.error?.message || 'Failed to delete user.', false)
       });
     }
   }

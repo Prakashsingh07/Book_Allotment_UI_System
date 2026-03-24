@@ -28,7 +28,7 @@ import { LogService } from '../../../core/services/log.service';
           <h1 class="text-4xl font-extrabold text-white">Allotment Logs</h1>
           <p class="text-indigo-200/70 mt-1 text-sm">Full history of book allotments and returns</p>
         </div>
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3 flex-wrap">
           <div class="bg-white/10 border border-white/10 rounded-2xl px-5 py-3 text-center">
             <p class="text-white/40 text-xs">Total Records</p>
             <p class="text-white font-extrabold text-xl leading-none">{{ logs.length }}</p>
@@ -40,6 +40,10 @@ import { LogService } from '../../../core/services/log.service';
           <div class="bg-rose-500/15 border border-rose-500/25 rounded-2xl px-5 py-3 text-center">
             <p class="text-rose-300 text-xs">Overdue</p>
             <p class="text-rose-400 font-extrabold text-xl leading-none">{{ countByStatus('Overdue') }}</p>
+          </div>
+          <div class="bg-teal-500/15 border border-teal-500/25 rounded-2xl px-5 py-3 text-center">
+            <p class="text-teal-300 text-xs">Returned & Paid</p>
+            <p class="text-teal-400 font-extrabold text-xl leading-none">{{ countByStatus('Returned & Paid') }}</p>
           </div>
         </div>
       </div>
@@ -58,7 +62,7 @@ import { LogService } from '../../../core/services/log.service';
                       pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
       </div>
       <div class="flex gap-2 flex-wrap">
-        <button *ngFor="let s of ['', 'Allotted', 'Revoked', 'Overdue']"
+        <button *ngFor="let s of statusFilters"
                 (click)="selectedStatus = s; currentPage = 1"
                 class="px-4 py-2 rounded-xl text-xs font-bold border transition-all"
                 [ngClass]="selectedStatus === s
@@ -86,6 +90,8 @@ import { LogService } from '../../../core/services/log.service';
               <th class="px-6 py-4 text-left text-xs font-bold text-white/40 uppercase tracking-wider">Book</th>
               <th class="px-6 py-4 text-left text-xs font-bold text-white/40 uppercase tracking-wider">User</th>
               <th class="px-6 py-4 text-left text-xs font-bold text-white/40 uppercase tracking-wider">Allot Date</th>
+              <th class="px-6 py-4 text-left text-xs font-bold text-white/40 uppercase tracking-wider">Due Date</th>
+              <th class="px-6 py-4 text-left text-xs font-bold text-white/40 uppercase tracking-wider">Fine</th>
               <th class="px-6 py-4 text-left text-xs font-bold text-white/40 uppercase tracking-wider">Status</th>
               <th class="px-6 py-4 text-center text-xs font-bold text-white/40 uppercase tracking-wider">Action</th>
             </tr>
@@ -94,7 +100,8 @@ import { LogService } from '../../../core/services/log.service';
 
             <tr *ngFor="let log of paginatedLogs()"
                 class="hover:bg-white/5 transition-colors"
-                [class.bg-rose-500/5]="log.status === 'Overdue'">
+                [class.bg-rose-500/5]="log.status === 'Overdue'"
+                [class.bg-teal-500/5]="log.status === 'Returned & Paid'">
 
               <!-- Book -->
               <td class="px-6 py-4">
@@ -122,26 +129,39 @@ import { LogService } from '../../../core/services/log.service';
                 </div>
               </td>
 
-              <!-- Date -->
+              <!-- Allot Date -->
               <td class="px-6 py-4 text-sm text-white/50">
                 {{ log.allotDate | date:'mediumDate' }}
+              </td>
+
+              <!-- Due Date -->
+              <td class="px-6 py-4 text-sm"
+                  [class.text-rose-400]="log.status === 'Overdue'"
+                  [class.text-white/50]="log.status !== 'Overdue'">
+                {{ log.dueDate ? (log.dueDate | date:'mediumDate') : '—' }}
+              </td>
+
+              <!-- Fine -->
+              <td class="px-6 py-4">
+                <ng-container *ngIf="log.fine > 0; else noFine">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold"
+                        [ngClass]="log.finePaid
+                          ? 'bg-teal-500/15 text-teal-400 border border-teal-500/25'
+                          : 'bg-rose-500/15 text-rose-400 border border-rose-500/25'">
+                    ₹{{ log.fine }}
+                    <span *ngIf="log.finePaid" class="text-teal-300">✓</span>
+                  </span>
+                </ng-container>
+                <ng-template #noFine>
+                  <span class="text-white/25 text-xs italic">—</span>
+                </ng-template>
               </td>
 
               <!-- Status -->
               <td class="px-6 py-4">
                 <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border"
-                      [ngClass]="{
-                        'bg-emerald-500/15 text-emerald-400 border-emerald-500/25': log.status === 'Allotted',
-                        'bg-rose-500/15 text-rose-400 border-rose-500/25': log.status === 'Revoked' || log.status === 'Overdue',
-                        'bg-blue-500/15 text-blue-400 border-blue-500/25': log.status === 'Returned',
-                        'bg-gray-500/15 text-gray-400 border-gray-500/25': log.status !== 'Allotted' && log.status !== 'Revoked' && log.status !== 'Overdue' && log.status !== 'Returned'
-                      }">
-                  <span class="w-1.5 h-1.5 rounded-full"
-                        [ngClass]="{
-                          'bg-emerald-400': log.status === 'Allotted',
-                          'bg-rose-400': log.status === 'Revoked' || log.status === 'Overdue',
-                          'bg-blue-400': log.status === 'Returned'
-                        }"></span>
+                      [ngClass]="statusClass(log.status)">
+                  <span class="w-1.5 h-1.5 rounded-full" [ngClass]="dotClass(log.status)"></span>
                   {{ log.status }}
                 </span>
               </td>
@@ -163,7 +183,7 @@ import { LogService } from '../../../core/services/log.service';
             </tr>
 
             <tr *ngIf="filteredLogs().length === 0">
-              <td colspan="5" class="py-20 text-center">
+              <td colspan="7" class="py-20 text-center">
                 <div class="flex flex-col items-center gap-3">
                   <div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -180,9 +200,7 @@ import { LogService } from '../../../core/services/log.service';
 
       <!-- Pagination -->
       <div class="px-6 py-4 border-t border-white/10 flex items-center justify-between">
-        <p class="text-xs text-white/30">
-          Page {{ currentPage }} of {{ totalPages() }}
-        </p>
+        <p class="text-xs text-white/30">Page {{ currentPage }} of {{ totalPages() }}</p>
         <div class="flex items-center gap-2">
           <button (click)="previousPage()" [disabled]="currentPage === 1"
                   class="px-4 py-2 rounded-xl text-xs font-bold bg-white/10 text-white/60 border border-white/10
@@ -212,6 +230,8 @@ export class LogsComponent implements OnInit {
   toastMessage = '';
   toastSuccess = true;
 
+  statusFilters = ['', 'Allotted', 'Overdue', 'Returned', 'Returned & Paid', 'Revoked'];
+
   constructor(private logService: LogService) {}
 
   ngOnInit() { this.loadLogs(); }
@@ -219,6 +239,28 @@ export class LogsComponent implements OnInit {
   loadLogs() { this.logService.getAllLogs().subscribe(res => this.logs = res); }
 
   countByStatus(status: string) { return this.logs.filter(l => l.status === status).length; }
+
+  statusClass(status: string): string {
+    switch (status) {
+      case 'Allotted':        return 'bg-emerald-500/15 text-emerald-400 border-emerald-500/25';
+      case 'Overdue':         return 'bg-rose-500/15 text-rose-400 border-rose-500/25';
+      case 'Returned':        return 'bg-blue-500/15 text-blue-400 border-blue-500/25';
+      case 'Returned & Paid': return 'bg-teal-500/15 text-teal-400 border-teal-500/25';
+      case 'Revoked':         return 'bg-gray-500/15 text-gray-400 border-gray-500/25';
+      default:                return 'bg-gray-500/15 text-gray-400 border-gray-500/25';
+    }
+  }
+
+  dotClass(status: string): string {
+    switch (status) {
+      case 'Allotted':        return 'bg-emerald-400';
+      case 'Overdue':         return 'bg-rose-400';
+      case 'Returned':        return 'bg-blue-400';
+      case 'Returned & Paid': return 'bg-teal-400';
+      case 'Revoked':         return 'bg-gray-400';
+      default:                return 'bg-gray-400';
+    }
+  }
 
   showToast(message: string, success = true) {
     this.toastMessage = message; this.toastSuccess = success;
@@ -252,6 +294,6 @@ export class LogsComponent implements OnInit {
   }
 
   totalPages() { return Math.ceil(this.filteredLogs().length / this.pageSize) || 1; }
-  nextPage() { if (this.currentPage < this.totalPages()) this.currentPage++; }
+  nextPage()     { if (this.currentPage < this.totalPages()) this.currentPage++; }
   previousPage() { if (this.currentPage > 1) this.currentPage--; }
 }

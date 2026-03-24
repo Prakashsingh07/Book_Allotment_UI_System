@@ -54,6 +54,14 @@ export const routes: Routes = [
     data: { role: 'Admin' }
   },
   {
+    path: 'admin/settings',
+    loadComponent: () =>
+      import('./features/admin/settings/settings')
+        .then(m => m.AdminSettingsComponent),
+    canActivate: [authGuard, roleGuard],
+    data: { role: 'Admin' }
+  },
+  {
     path: 'admin/profile',
     loadComponent: () =>
       import('./features/admin/profile/profile')
@@ -100,3 +108,4 @@ export const routes: Routes = [
     data: { role: 'User' }
   }
 ];
+

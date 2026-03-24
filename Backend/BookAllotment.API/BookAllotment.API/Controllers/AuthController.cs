@@ -7,8 +7,14 @@ using System.Security.Claims;
 
 namespace BookAllotment.API.Controllers
 {
-    // Local record used by both user and admin profile update endpoints
-    public record UpdateProfileRequest(string Name, string Email, string? NewPassword);
+    // Plain class instead of record — System.Text.Json requires a parameterless constructor
+    public class UpdateProfileRequest
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string? CurrentPassword { get; set; }
+        public string? NewPassword { get; set; }
+    }
 
     [ApiController]
     [Route("api/auth")]
@@ -61,21 +67,43 @@ namespace BookAllotment.API.Controllers
         [HttpPut("update-profile")]
         public async Task<IActionResult> UpdateProfile([FromBody] UpdateProfileRequest dto)
         {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (userIdClaim == null) return Unauthorized();
+            try
+            {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (userIdClaim == null) return Unauthorized();
 
-            int userId = int.Parse(userIdClaim);
-            var user = await _context.Users.FindAsync(userId);
-            if (user == null) return NotFound("User not found");
+                int userId = int.Parse(userIdClaim);
+                var user = await _context.Users.FindAsync(userId);
+                if (user == null) return NotFound("User not found");
 
-            user.Name = dto.Name;
-            user.Email = dto.Email;
+                if (!string.IsNullOrWhiteSpace(dto.NewPassword))
+                {
+                    if (string.IsNullOrWhiteSpace(dto.CurrentPassword))
+                        return BadRequest(new { message = "Current password is required to set a new password." });
 
-            if (!string.IsNullOrWhiteSpace(dto.NewPassword))
-                user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword);
+                    if (string.IsNullOrWhiteSpace(user.PasswordHash))
+                        return BadRequest(new { message = "Account has no password set. Please contact support." });
 
-            await _context.SaveChangesAsync();
-            return Ok(new { message = "Profile updated successfully" });
+                    bool valid = false;
+                    try { valid = BCrypt.Net.BCrypt.Verify(dto.CurrentPassword, user.PasswordHash); }
+                    catch { return BadRequest(new { message = "Current password verification failed." }); }
+
+                    if (!valid)
+                        return BadRequest(new { message = "Current password is incorrect." });
+
+                    user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword);
+                }
+
+                user.Name = dto.Name;
+                user.Email = dto.Email;
+
+                await _context.SaveChangesAsync();
+                return Ok(new { message = "Profile updated successfully" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An unexpected error occurred.", detail = ex.Message });
+            }
         }
 
         // ============================================
@@ -100,21 +128,43 @@ namespace BookAllotment.API.Controllers
         [HttpPut("admin/update-profile")]
         public async Task<IActionResult> UpdateAdminProfile([FromBody] UpdateProfileRequest dto)
         {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (userIdClaim == null) return Unauthorized();
+            try
+            {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (userIdClaim == null) return Unauthorized();
 
-            int userId = int.Parse(userIdClaim);
-            var user = await _context.Users.FindAsync(userId);
-            if (user == null) return NotFound("Admin not found");
+                int userId = int.Parse(userIdClaim);
+                var user = await _context.Users.FindAsync(userId);
+                if (user == null) return NotFound("Admin not found");
 
-            user.Name = dto.Name;
-            user.Email = dto.Email;
+                if (!string.IsNullOrWhiteSpace(dto.NewPassword))
+                {
+                    if (string.IsNullOrWhiteSpace(dto.CurrentPassword))
+                        return BadRequest(new { message = "Current password is required to set a new password." });
 
-            if (!string.IsNullOrWhiteSpace(dto.NewPassword))
-                user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword);
+                    if (string.IsNullOrWhiteSpace(user.PasswordHash))
+                        return BadRequest(new { message = "Account has no password set. Please contact support." });
 
-            await _context.SaveChangesAsync();
-            return Ok(new { message = "Profile updated successfully" });
+                    bool valid = false;
+                    try { valid = BCrypt.Net.BCrypt.Verify(dto.CurrentPassword, user.PasswordHash); }
+                    catch { return BadRequest(new { message = "Current password verification failed." }); }
+
+                    if (!valid)
+                        return BadRequest(new { message = "Current password is incorrect." });
+
+                    user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword);
+                }
+
+                user.Name = dto.Name;
+                user.Email = dto.Email;
+
+                await _context.SaveChangesAsync();
+                return Ok(new { message = "Profile updated successfully" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An unexpected error occurred.", detail = ex.Message });
+            }
         }
     }
 }

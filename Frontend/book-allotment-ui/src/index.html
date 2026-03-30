@@ -2,10 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>BookAllotmentUi</title>
+  <title>BookAllotment</title>
   <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Mobile-first viewport: maximum-scale=5 keeps accessibility zoom.
+       viewport-fit=cover handles iPhone notch / Dynamic Island. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+
+  <!-- PWA / add-to-home-screen -->
+  <meta name="theme-color" content="#0f172a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="BookAllotment">
+
+  <!-- SEO -->
+  <meta name="description" content="Book Allotment System — manage library books, requests, fines and users.">
+  <meta name="robots" content="noindex">
+
+  <!-- Warm API connection before Angular boots -->
+  <link rel="preconnect" href="https://localhost:7278">
+
+  <!-- Icons -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="favicon.ico">
+
+  <!-- Prevent white flash on dark theme + safe-area helpers -->
+  <style>
+    html, body { background-color: #0f172a; margin: 0; padding: 0; }
+    body { -webkit-tap-highlight-color: transparent; }
+    .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
+    .pt-safe  { padding-top:    env(safe-area-inset-top,    0px); }
+  </style>
 </head>
 <body>
   <app-root></app-root>

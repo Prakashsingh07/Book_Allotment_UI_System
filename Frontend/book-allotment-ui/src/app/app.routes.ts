@@ -2,110 +2,102 @@ import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
 import { roleGuard } from './core/guards/role.guard';
 
-import { LoginComponent } from './features/auth/login/login';
-import { RegisterComponent } from './features/auth/register/register';
-
-import { AdminDashboardComponent } from './features/admin/dashboard/dashboard';
-import { ManageUsersComponent } from './features/admin/manage-users/manage-users';
-import { ManageBooksComponent } from './features/admin/manage-books/manage-books';
-import { LogsComponent } from './features/admin/logs/logs';
-
-import { UserDashboardComponent } from './features/user/dashboard/dashboard';
-import { MyBooksComponent } from './features/user/my-books/my-books';
+// ALL routes are lazy-loaded so Angular only downloads the JS chunk it needs.
+// Combined with PreloadAllModules in app.config.ts, all chunks are prefetched
+// in the background after first load — instant navigation every time.
 
 export const routes: Routes = [
 
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  // ── Auth (no guard needed) ─────────────────────────────────────────
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./features/auth/login/login').then(m => m.LoginComponent)
+  },
+  {
+    path: 'register',
+    loadComponent: () =>
+      import('./features/auth/register/register').then(m => m.RegisterComponent)
+  },
 
-  // ADMIN ROUTES
+  // ── Admin routes ───────────────────────────────────────────────────
   {
     path: 'admin/dashboard',
-    component: AdminDashboardComponent,
-    canActivate: [authGuard, roleGuard],
-    data: { role: 'Admin' }
+    loadComponent: () =>
+      import('./features/admin/dashboard/dashboard').then(m => m.AdminDashboardComponent),
+    canActivate: [authGuard, roleGuard], data: { role: 'Admin' }
   },
   {
     path: 'admin/users',
-    component: ManageUsersComponent,
-    canActivate: [authGuard, roleGuard],
-    data: { role: 'Admin' }
+    loadComponent: () =>
+      import('./features/admin/manage-users/manage-users').then(m => m.ManageUsersComponent),
+    canActivate: [authGuard, roleGuard], data: { role: 'Admin' }
   },
   {
     path: 'admin/books',
-    component: ManageBooksComponent,
-    canActivate: [authGuard, roleGuard],
-    data: { role: 'Admin' }
+    loadComponent: () =>
+      import('./features/admin/manage-books/manage-books').then(m => m.ManageBooksComponent),
+    canActivate: [authGuard, roleGuard], data: { role: 'Admin' }
   },
   {
     path: 'admin/logs',
-    component: LogsComponent,
-    canActivate: [authGuard, roleGuard],
-    data: { role: 'Admin' }
+    loadComponent: () =>
+      import('./features/admin/logs/logs').then(m => m.LogsComponent),
+    canActivate: [authGuard, roleGuard], data: { role: 'Admin' }
   },
   {
     path: 'admin/pending-requests',
     loadComponent: () =>
-      import('./features/admin/pending-requests/pending-requests')
-        .then(m => m.PendingRequestsComponent),
-    canActivate: [authGuard, roleGuard],
-    data: { role: 'Admin' }
+      import('./features/admin/pending-requests/pending-requests').then(m => m.PendingRequestsComponent),
+    canActivate: [authGuard, roleGuard], data: { role: 'Admin' }
   },
   {
     path: 'admin/settings',
     loadComponent: () =>
-      import('./features/admin/settings/settings')
-        .then(m => m.AdminSettingsComponent),
-    canActivate: [authGuard, roleGuard],
-    data: { role: 'Admin' }
+      import('./features/admin/settings/settings').then(m => m.AdminSettingsComponent),
+    canActivate: [authGuard, roleGuard], data: { role: 'Admin' }
   },
   {
     path: 'admin/profile',
     loadComponent: () =>
-      import('./features/admin/profile/profile')
-        .then(m => m.AdminProfileComponent),
-    canActivate: [authGuard, roleGuard],
-    data: { role: 'Admin' }
+      import('./features/admin/profile/profile').then(m => m.AdminProfileComponent),
+    canActivate: [authGuard, roleGuard], data: { role: 'Admin' }
   },
 
-  // USER ROUTES
+  // ── User routes ────────────────────────────────────────────────────
   {
     path: 'user/dashboard',
-    component: UserDashboardComponent,
-    canActivate: [authGuard, roleGuard],
-    data: { role: 'User' }
-  },
-  {
-    path: 'user/my-activity',
     loadComponent: () =>
-      import('./features/user/my-activity/my-activity')
-        .then(m => m.MyActivityComponent),
-    canActivate: [authGuard, roleGuard],
-    data: { role: 'User' }
-  },
-  {
-    path: 'user/profile',
-    loadComponent: () =>
-      import('./features/user/Profile/profile')
-        .then(m => m.ProfileComponent),
-    canActivate: [authGuard, roleGuard],
-    data: { role: 'User' }
-  },
-  {
-    path: 'user/my-books',
-    component: MyBooksComponent,
-    canActivate: [authGuard, roleGuard],
-    data: { role: 'User' }
+      import('./features/user/dashboard/dashboard').then(m => m.UserDashboardComponent),
+    canActivate: [authGuard, roleGuard], data: { role: 'User' }
   },
   {
     path: 'user/available-books',
     loadComponent: () =>
-      import('./features/user/available-books/available-books')
-        .then(m => m.AvailableBooksComponent),
-    canActivate: [authGuard, roleGuard],
-    data: { role: 'User' }
-  }
-];
+      import('./features/user/available-books/available-books').then(m => m.AvailableBooksComponent),
+    canActivate: [authGuard, roleGuard], data: { role: 'User' }
+  },
+  {
+    path: 'user/my-books',
+    loadComponent: () =>
+      import('./features/user/my-books/my-books').then(m => m.MyBooksComponent),
+    canActivate: [authGuard, roleGuard], data: { role: 'User' }
+  },
+  {
+    path: 'user/my-activity',
+    loadComponent: () =>
+      import('./features/user/my-activity/my-activity').then(m => m.MyActivityComponent),
+    canActivate: [authGuard, roleGuard], data: { role: 'User' }
+  },
+  {
+    path: 'user/profile',
+    loadComponent: () =>
+      import('./features/user/Profile/profile').then(m => m.ProfileComponent),
+    canActivate: [authGuard, roleGuard], data: { role: 'User' }
+  },
 
+  // ── Catch-all — redirect unknown URLs to login ─────────────────────
+  { path: '**', redirectTo: 'login' }
+];

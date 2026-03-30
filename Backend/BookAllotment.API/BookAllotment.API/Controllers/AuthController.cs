@@ -119,7 +119,7 @@ namespace BookAllotment.API.Controllers
 
             int userId = int.Parse(userIdClaim);
             var user = await _context.Users.FindAsync(userId);
-            if (user == null) return NotFound("Admin not found");
+            if (user == null) return NotFound("Admin not found");  
 
             return Ok(new { id = user.Id, name = user.Name, email = user.Email, role = user.Role });
         }

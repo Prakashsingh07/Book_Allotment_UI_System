@@ -15,7 +15,7 @@ namespace BookAllotment.API.Controllers
         public string? CurrentPassword { get; set; }
         public string? NewPassword { get; set; }
     }
-
+                                                           
     [ApiController]
     [Route("api/auth")]
     public class AuthController : ControllerBase

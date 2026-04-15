@@ -2,9 +2,7 @@ import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
 import { roleGuard } from './core/guards/role.guard';
 
-// ALL routes are lazy-loaded so Angular only downloads the JS chunk it needs.
-// Combined with PreloadAllModules in app.config.ts, all chunks are prefetched
-// in the background after first load — instant navigation every time.
+
 
 export const routes: Routes = [
 
